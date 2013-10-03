@@ -1,0 +1,10 @@
+name = Catman custom
+description = Catman custom settings and configurations
+core = 7.x
+package = Catman
+stylesheets[all][] = theme/catman_custom.css
+
+dependencies[] = views
+dependencies[] = commerce_message
+dependencies[] = commerce_cart
+dependencies[] = ctools

@@ -1,0 +1,144 @@
+<?php
+/**
+ * @file catman_custom.module
+ *
+ * A module for Catman customizations
+ *
+ */
+
+
+/**
+ * Implements hook_commerce_line_item_summary_link_info_alter().
+ */
+function catman_custom_order_commerce_line_item_summary_link_info_alter(&$links) {
+  // Link checkout button to the cart.
+  if (isset($links['checkout'])) {
+    $links['checkout']['href'] = 'cart';
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function catman_custom_order_views_api() {
+  return array(
+    "version" => "3.0",
+    'path' => drupal_get_path('module', 'catman_custom') . '/includes/views',
+  );
+}
+
+
+
+/**
+* Implements hook_node_view().
+* don't display store data if add to store field is not checked
+*/
+function catman_custom_node_view($node, $view_mode, $langcode) { 
+
+  if ($node->field_add_to_store['und'][0]['value'] == 0) {
+    unset($node->field_publication_product);
+  }
+
+}
+
+
+
+
+
+/**
+* Implements hook_form_alter().
+*/
+function catman_custom_form_alter(&$form, &$form_state, $form_id) {
+
+  //dpm($form, '$form');
+    //dpm($entity_form, '$entity_form');
+    //dpm($form_state, '$form_state line 14');
+
+  switch ($form_id) {
+
+    case 'commerce_checkout_form_review':
+    //dpm($form);
+
+    $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order or OSU index');
+    $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
+
+    break;
+  }
+
+}
+
+/**
+ * Ajax callback for subaccount input in beauty07ajax_form form.
+ */
+function publication_product_callback($form, $form_state) {
+
+  // if ($form_state['field']['field_add_to_store']['und']['field']['columns']['value'] = NOT_NULL) {
+  //   $form_state['field']['field_publication_product']['#access'] = TRUE;
+  // }
+  // else {
+  //   $form_state['field']['field_publication_product']['#access'] = FALSE;
+  // }
+
+  // if ($form_state['field']['field_add_to_store']['und']['field']['columns']['value']['not null']) {
+  //   $form_state['field_publication_product']['#access'] = TRUE;
+  //   $form_state['inline_entity_form']['#access'] = TRUE;
+  // }
+  // else {
+  //   $form_state['field_publication_product']['#access'] = FALSE;
+  //   //$form_state['inline_entity_form']['#access'] = FALSE;
+  // }
+
+  return $form['osu_catalog_publication_node_form'];
+}
+
+
+/**
+  * Perform alterations before an entity form is included in the IEF widget.
+ *
+ * @param $entity_form
+ * Nested array of form elements that comprise the entity form.
+ * @param $form_state
+ * The form state of the parent form.
+ */
+// function catman_custom_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+//   if ($entity_form['#entity_type'] == 'commerce_product') {
+//     $entity_form['#access'] = FALSE;
+//   } 
+// }
+
+
+
+/**
+ * Implements hook_form_field_ui_field_edit_form_alter().
+ */
+// function catman_commerce_product_form_field_ui_field_edit_form_alter(&$form) {
+
+//   dpm($form);
+//  unset($form['access']['product_catalog']);
+
+// }
+
+/**
+ * Implements hook_form_views_form_alter().
+ */
+// function commerce_backoffice_product_form_alter(&$form, &$form_state, $form_id) {
+//   // Alter the node edit form to group the categories in a vertical tab.
+//   if (isset($form['#node_edit_form'])) {
+//     $product_node_types = commerce_product_reference_node_types();
+    
+//     }
+//   }
+//   // Alter the Exposed Filters for products page
+//   if (isset($form['submit']['#id']) && $form['submit']['#id'] == 'edit-submit-commerce-backoffice-products') {
+//     $form['product_display_node_type']['#attributes'] = array('data-placeholder' => array(t('All product types')));
+//     $form['product_display_term_node_tid_multiple']['#attributes'] = array('data-placeholder' => array(t('All categories')));
+//     $form['status']['#options']['All'] = t('All statuses');
+//     $form['combine']['#attributes'] = array('placeholder' => array(t('Search by title or SKU')));
+//   }
+//   // Alter the exposed filters for all product variations view.
+//   if (isset($form['submit']['#id']) && $form['submit']['#id'] == 'edit-submit-commerce-backoffice-all-product-variations') {
+//     $form['type']['#attributes'] = array('data-placeholder' => array(t('Variation types')));
+//     $form['combine']['#attributes'] = array('placeholder' => array(t('Search by title or SKU')));
+//     $form['status']['#options']['All'] = t('All statuses');
+//   }
+// }
