@@ -49,44 +49,23 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
 
     case 'osu_catalog_publication_node_form':
-    //dpm($form);
 
-    $form['field_supplemental_file']['und'][0]['#description'] = t('');
+      $form['field_supplemental_file']['und'][0]['#description'] = t('');
 
     break;
 
     case 'commerce_checkout_form_review':
-    //dpm($form);
+    
+      global $user;
 
-    $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order or OSU index');
-    $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
+      if (in_array('OSU affiliate', array_values($user->roles)) || in_array('Reseller', array_values($user->roles)) || in_array('PNW', array_values($user->roles)) ) { 
+        $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order or OSU index');
+        $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
+      }
 
     break;
   }
 
 }
 
-/**
- * Ajax callback for subaccount input in beauty07ajax_form form.
- */
-// function publication_product_callback($form, $form_state) {
-
-//   // if ($form_state['field']['field_add_to_store']['und']['field']['columns']['value'] = NOT_NULL) {
-//   //   $form_state['field']['field_publication_product']['#access'] = TRUE;
-//   // }
-//   // else {
-//   //   $form_state['field']['field_publication_product']['#access'] = FALSE;
-//   // }
-
-//   // if ($form_state['field']['field_add_to_store']['und']['field']['columns']['value']['not null']) {
-//   //   $form_state['field_publication_product']['#access'] = TRUE;
-//   //   $form_state['inline_entity_form']['#access'] = TRUE;
-//   // }
-//   // else {
-//   //   $form_state['field_publication_product']['#access'] = FALSE;
-//   //   //$form_state['inline_entity_form']['#access'] = FALSE;
-//   // }
-
-//   return $form['osu_catalog_publication_node_form'];
-// }
 
