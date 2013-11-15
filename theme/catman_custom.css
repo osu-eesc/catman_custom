@@ -169,6 +169,15 @@ div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-dis
 }*/
 
 
+/* invoice styles */
+h3.invoice-header {
+
+}
+
+.invoice-address {
+  margin-bottom: 50px;
+}
+
 
 
 
