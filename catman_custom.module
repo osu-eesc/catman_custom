@@ -131,12 +131,17 @@ function catman_custom_block_view($delta = '') {
 
 /**
  * Implements hook_commerce_payment_method_info().
+ * Set available payment methods/titles
  */
 function catman_custom_commerce_payment_method_info_alter(&$payment_methods)  {
   $payment_methods = array();
 
   $payment_methods['commerce_purchase_order'] = array(
     'title' => t('Purchase Order or OSU Index'),
+  );
+
+  $payment_methods['commerce_payment_touchnet_upay'] = array(
+    'title' => t('TouchNet uPay - OSU Market Place'),
   );
 
   return $payment_methods;
