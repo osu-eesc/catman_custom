@@ -126,7 +126,27 @@ function catman_custom_block_view($delta = '') {
 }
 
 
-
+/**
+ * @file
+ * Display Suite Custom Layouts for OAP
+ */
+function catman_custom_ds_layout_info() {
+  $path = drupal_get_path('module', 'catman_custom') . '/theme';
+  $layouts = array();
+  // Fluid Teaser Layout
+  $layouts['fluid_teaser_layout'] = array(
+    'label' => t('Fluid Teaser Layout'),
+    'path' => $path . "/fluid_teaser_layout",
+    'regions' => array(
+      'image' => t('Image'),
+      'contents' => t('Contents'),
+    ),
+    'form' => TRUE,
+    'image' => FALSE,
+    'css' => TRUE,
+  );
+  return $layouts;
+}
 
 
 /**

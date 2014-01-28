@@ -1,0 +1,13 @@
+.fluid-teaser-row {
+	padding-bottom:20px;
+	margin-bottom:21px;
+	border-bottom: 1px #d9d9d9 solid;
+}
+
+.fluid-teaser-row div.image {
+	max-width: 109px;
+}
+
+.fluid-teaser-row .field-item {
+	font-size:inherit;
+}

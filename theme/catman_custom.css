@@ -179,5 +179,158 @@ h3.invoice-header {
 }
 
 
+/*---------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------Viewport rules below here------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------*/
+@media (min-width: 1200px) {
+  
+}
+
+@media (max-width: 1199px) {
+  /* Hide cover image */
+   /* .node-type-food-issue-menu-item .region-sidebar-first,
+    .node-type-article .region-sidebar-first,
+    .node-type-oap-focus-subject .region-sidebar-first,
+    .node-type-oap-sections .region-sidebar-first {
+      display: none;
+    }*/
+}
+
+@media (max-width: 1199px) and (min-width: 980px) {
+  /* Hide cover image */
+    /*.node-type-food-issue-menu-item #page-wrapper > .row > .span9,
+    .node-type-article #page-wrapper > .row > .span9,
+    .node-type-oap-focus-subject #page-wrapper > .row > .span9,
+    .node-type-oap-sections #page-wrapper > .row > .span9 {
+      width: 976px;*/
+    }
+    /*.node-type-food-issue-menu-item #page-wrapper > .row > .span9 > .row > .span6,
+    .node-type-article #page-wrapper > .row > .span9 > .row > .span6,
+    .node-type-oap-focus-subject #page-wrapper > .row > .span9 > .row > .span6,
+    .node-type-oap-sections #page-wrapper > .row > .span9 > .row > .span6 {
+      width: 727px;*/
+    }
+}
+
+@media (min-width: 980px) {
+  /* Graphical-search apply button */
+    /*.view-id-magazine_search .views-submit-button {
+      padding-top: 33px;
+      clear: none;*/
+    }
+}
+
+@media (max-width: 979px) {
+  /* Articles list */
+    /*.view-magazine-articles .view-content .views-row {
+      padding-bottom: 1.5em;*/
+    }
+}
+
+@media (min-width: 768px) {
+  
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  
+}
+
+@media (max-width: 767px) {
+  /* Articles list */
+    /*.view-magazine-articles .view-content .views-row .span2 {
+    margin-bottom: 0.3em;*/
+    }
+
+   
+
+  /*  ---- Sidebar - Secondary ------------------------------------------------------------ */
+    #sidebar-second .content {
+      width: auto;
+      margin: 0;
+    }
+    /*#sidebar-second #block-views-article-list-block-1 .content .views-row .views-field-field-teaser-image {
+      float: left;
+    }
+    #sidebar-second #block-views-article-list-block-1 .content .views-row .views-field-title {
+      margin-left: 120px;
+      padding-bottom:10px;
+    }
+    #sidebar-second #block-views-article-list-block-1 .content .views-row .views-field-view .views-field-title {
+      margin-left: 0;
+      padding-bottom:0;
+    }
+    #sidebar-second #block-views-article-list-block-1 .content .views-row .views-field-view {
+      margin-left: 120px;
+    }
+    
+    #sidebar-second #block-views-article-list-block-1 .content .views-row {
+      max-width: none;
+    }
+    #sidebar-second #block-views-article-list-block-1 .view-display-id-block_4 .views-field-title {
+      padding-bottom: 15px;*/
+    }
+
+  /*Article Sub-Title*/
+    /*.node-article .field-name-field-sub-title {
+      line-height: 1.2em;
+    }*/
+}
+
+@media (min-width: 540px) {
+  
+}
+
+@media (max-width: 540px) {
+  /* Stories block padding */
+    #block-menu-block-1 {
+      padding: .4em;
+    }
+
+  /* hide environment indicator on samll screen sizes */
+    #environment-indicator  {
+      display: none;
+    }
+    
+}
+
+
+
+  /*  ---- Sidebar - Secondary ------------------------------------------------------------ */
+    /*#sidebar-second .content {
+      width: auto;
+      margin: 0;
+    }
+    #sidebar-second .content .views-row {
+      margin: 0 auto;
+      max-width: 373px;
+    }
+    #sidebar-second .content .views-row .views-field-field-teaser-image {
+      float: left;
+    }
+    #sidebar-second .content .views-row .views-field-title {
+      float: left;
+      max-width: 253px;
+      padding-left: 10px;
+    }*/
+}
+
+@media (min-width: 481px) and (max-width: 540px) {
+  
+}
+
+@media (max-width: 480px) {
+  /*Article image styling*/
+
+    div.caption {
+      width:100%;
+    }
+
+    div.caption div.caption-inner {
+      float: none;
+      margin: 0 auto;
+    }
+}
+
+
 
 
