@@ -1,7 +1,7 @@
 name = Catman custom
 description = Catman custom settings and configurations
 core = 7.x
-version = 7.x-1.1
+version = 7.x-1.2
 package = Catman
 stylesheets[all][] = theme/catman_custom.css
 

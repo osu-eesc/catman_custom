@@ -6,27 +6,30 @@
  *
  */
 
-
-/**
- * Implements hook_commerce_line_item_summary_link_info_alter().
- */
-function catman_custom_order_commerce_line_item_summary_link_info_alter(&$links) {
-  // Link checkout button to the cart.
-  if (isset($links['checkout'])) {
-    $links['checkout']['href'] = 'cart';
-  }
-}
-
 /**
  * Implements hook_views_api().
  */
 function catman_custom_order_views_api() {
+
   return array(
     "version" => "3.0",
     'path' => drupal_get_path('module', 'catman_custom') . '/includes/views',
   );
+
 }
 
+
+/**
+ * Implements hook_commerce_line_item_summary_link_info_alter().
+ */
+function catman_custom_commerce_line_item_summary_link_info_alter(&$links) {
+
+  // Alter the weight of the checkout link to display before the view cart link.
+  if (!empty($links['view_cart'])) {
+    $links['view_cart']['title'] = t('Cart');
+  }
+
+}
 
 /**
 * Implements hook_node_view().
@@ -42,17 +45,428 @@ function catman_custom_node_view($node, $view_mode, $langcode) {
 
 
 /**
+ * Implements hook_form_submit().
+ */
+function osu_catalog_publication_node_form_submit($form, &$form_state) {
+
+  // get node alias for use in file/link redirects
+  $aliaspath = $form_state['values']['field_series_prefix']['und'][0]['value'] . $form_state['values']['field_series_number']['und'][0]['value'] . strtolower($form_state['values']['field_series_suffix']['und'][0]['value']);
+
+  // set redirect source paths
+  $redirect_source_link = $aliaspath . '/view';
+  
+  // create magic link redirect if link_or_upload is 1 and link exists
+  if ($form_state['values']['field_link_or_upload']['und'][0]['value'] == 1 && $form_state['values']['field_catman_link']['und'][0]['url']) {
+
+    $redirect_current_link = $form_state['build_info']['args'][0]->field_catman_link['und'][0]['url'];
+    $redirect_destination_link = $form_state['values']['field_catman_link']['und'][0]['url'];
+
+    try {  
+      // create redirect class with redirect values
+      $redirect = new stdClass();
+
+      redirect_object_prepare(
+        $redirect, 
+        array(
+          'source' => $redirect_source_link, 
+          'source_options' => array(),
+          'redirect' => $redirect_destination_link, 
+          'redirect_options' => array(), 
+          'language' => LANGUAGE_NONE, 
+        ) 
+      );
+
+      // see if redirect exists, if not create it
+      $hash = redirect_hash($redirect);
+
+      if (!redirect_load_by_hash($hash)) {
+        redirect_save($redirect);
+        // log action for debugging
+        watchdog('catman_custom', 'Link redirect created: %link_redirect', array('%link_redirect' => $redirect->source), WATCHDOG_NOTICE, $link = NULL);
+      }
+
+    } // try
+
+    // log any errors
+    catch (Exception $e) {
+      watchdog('catman_custom', 'Link redirect error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+    }
+
+  }
+
+  else {
+
+    try {
+   
+      // delete invalid redirect if it exists
+      if (redirect_delete_by_path($redirect_source_link)) {
+        // log deletion
+        $delete_redirect = new stdClass();
+        $delete_redirect->source = $redirect_source_link;
+
+        watchdog('catman_custom', 'Link redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+      }
+    
+    } // try
+
+    // log any errors
+    catch (Exception $e) {
+      watchdog('catman_custom', 'Link redirect error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+    }
+
+    // update redirect if link changed
+    if ($redirect_current_link != $redirect_destination_link) {
+
+      try {
+        $redirect = new stdClass();
+
+        redirect_object_prepare(
+          $redirect, 
+            array(
+              'source' => $redirect_source_link, 
+              'source_options' => array(),
+              'redirect' => $redirect_destination_link, 
+              'redirect_options' => array(), 
+              'language' => LANGUAGE_NONE, 
+            ) 
+        );
+
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source_link)) {
+
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source_link;
+
+          watchdog('catman_custom', 'Link redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+
+        // now add correct redirect
+        if (!redirect_load_by_source($redirect_source_link)) {
+          redirect_save($redirect);
+          // log action for debugging
+          watchdog('catman_custom', 'Link redirect created (update): %link_redirect', array('%link_redirect' => $redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+
+      }  // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'Link redirect update error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+
+    } // $redirect_current_link
+
+  } // magic link
+
+} 
+
+
+/**
+ * Implements hook_file_update().
+ * create magic pdf link (redirect)
+ * create magic epub link (redirect)
+ * create magic preview link (redirect)
+ */
+function catman_custom_file_update($file) {
+
+  if ( ($file->type == 'pdf_document' || $file->type == 'epub_document' || $file->type == 'undefined') && ($file->status == 1) ) {
+
+    $pdfupload = strpos($file->uri, 'project/pdf'); // create/delete pdf redirect flag
+    $epubupload = strpos($file->uri, 'project/epub'); // create/delete epub redirect flag
+    $previewupload = strpos($file->uri, 'project/preview'); // create/delete preview redirect flag
+
+    if ($pdfupload !== FALSE) {
+     
+      $file_alias = str_replace('.pdf', '', $file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/viewfile';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+        // create redirect class with redirect values
+        $redirect = new stdClass();
+
+        redirect_object_prepare(
+          $redirect, 
+          array(
+            'source' => $redirect_source, 
+            'source_options' => array(),
+            'redirect' => $redirect_destination, 
+            'redirect_options' => array(), 
+            'language' => LANGUAGE_NONE, 
+          ) 
+        );
+
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'PDF redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+          
+        }
+
+        // now add correct redirect
+        if (!redirect_load_by_source($redirect_source)) {
+          redirect_save($redirect);
+            // log action for debugging
+            watchdog('catman_custom', 'PDF redirect created (update): %link_redirect', array('%link_redirect' => $redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+
+      }  // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'PDF redirect update error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if $pdfupload
+
+
+
+    if ($epubupload !== FALSE) {
+     
+      $file_alias = str_replace('.epub', '', $file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/epub';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+        // create redirect class with redirect values
+        $redirect = new stdClass();
+
+        redirect_object_prepare(
+          $redirect, 
+          array(
+            'source' => $redirect_source, 
+            'source_options' => array(),
+            'redirect' => $redirect_destination, 
+            'redirect_options' => array(), 
+            'language' => LANGUAGE_NONE, 
+          ) 
+        );
+
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'ePub redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+          
+        }
+
+        // now add correct redirect
+        if (!redirect_load_by_source($redirect_source)) {
+          redirect_save($redirect);
+            // log action for debugging
+            watchdog('catman_custom', 'ePub redirect created (update): %link_redirect', array('%link_redirect' => $redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+
+      }  // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'ePub redirect update error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if $epubupload
+
+
+
+    if ($previewupload !== FALSE) {
+     
+      $file_alias = str_replace('.pdf', '',$file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/preview';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+        // create redirect class with redirect values
+        $redirect = new stdClass();
+
+        redirect_object_prepare(
+          $redirect, 
+          array(
+            'source' => $redirect_source, 
+            'source_options' => array(),
+            'redirect' => $redirect_destination, 
+            'redirect_options' => array(), 
+            'language' => LANGUAGE_NONE, 
+          ) 
+        );
+
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'Preview redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+          
+        }
+
+        // now add correct redirect
+        if (!redirect_load_by_source($redirect_source)) {
+          redirect_save($redirect);
+            // log action for debugging
+            watchdog('catman_custom', 'Preview redirect created (update): %link_redirect', array('%link_redirect' => $redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+
+      }  // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'Preview redirect update error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if $previewupload
+
+    watchdog('file', t('%file has been updated. URI is %uri', array('%file' => $file->filename, '%uri' => $file->uri)));
+
+  } // if file
+
+}
+
+/**
+ * Implements hook_file_delete().
+ * delete magic pdf link (redirect)
+ * delete magic epub link (redirect)
+ * delete magic preview link (redirect)
+ *
+ * TODO: Correct behaviour - When a existing file is removed and then uploaded before 
+ *       submitting the form the redirect is deleted and not added back. The file entity 
+ *       redirect is also removed and not recreated, might be a redirect bug 
+ */
+function catman_custom_file_delete($file) {
+
+  if ( ($file->type == 'pdf_document' || $file->type == 'epub_document' || $file->type == 'undefined') && ($file->status == 1) ) {
+
+    $pdfupload = strpos($file->uri, 'project/pdf'); // create/delete pdf redirect flag
+    $epubupload = strpos($file->uri, 'project/epub'); // create/delete epub redirect flag
+    $previewupload = strpos($file->uri, 'project/preview'); // create/delete preview redirect flag
+
+    if ($pdfupload !== FALSE) {
+     
+      $file_alias = str_replace('.pdf', '', $file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/viewfile';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+   
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'PDF redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+    
+      } // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'PDF redirect delete error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if ($pdfupload
+
+
+    if ($epubupload !== FALSE) {
+     
+      $file_alias = str_replace('.epub', '', $file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/epub';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+   
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'ePub redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+    
+      } // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'ePub redirect delete error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if (epubupload
+
+
+    if ($previewupload !== FALSE) {
+     
+      $file_alias = str_replace('.pdf', '', $file->filename);
+
+      // set redirect source paths
+      $redirect_source = $file_alias . '/preview';
+
+      $redirect_destination = variable_get('file_public_path', conf_path() . '/files') . '/' . str_replace('public://', '', $file->uri);
+
+      try {
+   
+        // delete invalid redirect if it exists
+        if (redirect_delete_by_path($redirect_source)) {
+          // log deletion
+          $delete_redirect = new stdClass();
+          $delete_redirect->source = $redirect_source;
+
+          watchdog('catman_custom', 'Preview redirect deleted: %delete_redirect', array('%delete_redirect' => $delete_redirect->source), WATCHDOG_NOTICE, $link = NULL);
+        }
+    
+      } // try
+
+      // log any errors
+      catch (Exception $e) {
+        watchdog('catman_custom', 'Preview redirect delete error: %exception', array('%exception' => $e), WATCHDOG_NOTICE, $link = NULL);
+      }
+  
+    } // if (previewupload
+
+    watchdog('file', t('%file has been deleted. URI was %uri', array('%file' => $file->filename, '%uri' => $file->uri)));
+
+  } // if ( ($file->type
+
+}
+
+
+/**
 * Implements hook_form_alter().
 */
 function catman_custom_form_alter(&$form, &$form_state, $form_id) {
 
   switch ($form_id) {
 
+    
+
     case 'osu_catalog_publication_node_form':
 
-      $form['field_supplemental_file']['und'][0]['#description'] = t('');
 
-    break;
+      break;
+
 
     case 'commerce_checkout_form_review':
     
@@ -67,6 +481,7 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
   }
 
 }
+
 
 /**
  * Implements hook_block_info().
@@ -83,6 +498,7 @@ function catman_custom_block_info() {
  
   return $blocks;
 }
+
 
 /**
  * Implements hook_block_view().
@@ -128,7 +544,7 @@ function catman_custom_block_view($delta = '') {
 
 /**
  * @file
- * Display Suite Custom Layouts for OAP
+ * Display Suite Custom Layouts for Catman
  */
 function catman_custom_ds_layout_info() {
   $path = drupal_get_path('module', 'catman_custom') . '/theme';
@@ -147,25 +563,4 @@ function catman_custom_ds_layout_info() {
   );
   return $layouts;
 }
-
-
-/**
- * Implements hook_commerce_payment_method_info().
- * Set available payment methods/titles
- */
-// function catman_custom_commerce_payment_method_info_alter(&$payment_methods)  {
-//   $payment_methods = array();
-
-//   $payment_methods['commerce_purchase_order'] = array(
-//     'title' => t('Purchase Order or OSU Index'),
-//   );
-
-//   $payment_methods['commerce_payment_touchnet_upay'] = array(
-//     'title' => t('TouchNet uPay - OSU Market Place'),
-//   );
-
-//   return $payment_methods;
-// }
-
-
 
