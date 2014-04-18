@@ -319,138 +319,55 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'transaction_id' => 'transaction_id',
-    'created' => 'created',
-    'changed' => 'changed',
     'payment_method' => 'payment_method',
-    'message_1' => 'message_1',
-    'invoice_number' => 'invoice_number',
+    'message' => 'payment_method',
     'balance' => 'balance',
-    'status' => 'status',
-    'order_id' => 'order_id',
-    'remote_id' => 'remote_id',
-    'amount' => 'amount',
   );
-  $handler->display->display_options['style_options']['default'] = 'transaction_id';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'transaction_id' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'changed' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'payment_method' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
+      'align' => 'views-align-left',
+      'separator' => '<br />',
       'empty_column' => 0,
     ),
-    'message_1' => array(
-      'sortable' => 1,
+    'message' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'invoice_number' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
+      'align' => 'views-align-left',
       'separator' => '',
       'empty_column' => 0,
     ),
     'balance' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'status' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'order_id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'remote_id' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'amount' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
+      'align' => 'views-align-right',
+      'separator' => '<br />',
       'empty_column' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['override'] = FALSE;
   /* Relationship: Commerce Order: Invoice */
   $handler->display->display_options['relationships']['invoice_id']['id'] = 'invoice_id';
   $handler->display->display_options['relationships']['invoice_id']['table'] = 'commerce_order';
   $handler->display->display_options['relationships']['invoice_id']['field'] = 'invoice_id';
   $handler->display->display_options['relationships']['invoice_id']['required'] = TRUE;
-  /* Field: Commerce Payment Transaction: Transaction ID */
-  $handler->display->display_options['fields']['transaction_id']['id'] = 'transaction_id';
-  $handler->display->display_options['fields']['transaction_id']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['transaction_id']['field'] = 'transaction_id';
-  /* Field: Commerce Payment Transaction: Created date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['label'] = 'Transaction date';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  $handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d/Y';
-  $handler->display->display_options['fields']['created']['format_date_sql'] = 0;
-  /* Field: Commerce Payment Transaction: Changed date */
-  $handler->display->display_options['fields']['changed']['id'] = 'changed';
-  $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = 'Transaction changed date';
-  $handler->display->display_options['fields']['changed']['date_format'] = 'short';
-  $handler->display->display_options['fields']['changed']['format_date_sql'] = 0;
   /* Field: Commerce Payment Transaction: Payment method */
   $handler->display->display_options['fields']['payment_method']['id'] = 'payment_method';
   $handler->display->display_options['fields']['payment_method']['table'] = 'commerce_payment_transaction';
   $handler->display->display_options['fields']['payment_method']['field'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['label'] = 'Paid by';
   /* Field: Commerce Payment Transaction: Message */
-  $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
-  $handler->display->display_options['fields']['message_1']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['message_1']['field'] = 'message';
-  /* Field: Catman Invoice: Invoice number */
-  $handler->display->display_options['fields']['invoice_number']['id'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['invoice_number']['field'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['invoice_number']['link_to_invoice'] = 'admin';
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['label'] = '';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['message']['empty'] = '-';
   /* Field: Commerce Order: Order Balance */
   $handler->display->display_options['fields']['balance']['id'] = 'balance';
   $handler->display->display_options['fields']['balance']['table'] = 'commerce_order';
@@ -460,66 +377,81 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['balance']['element_wrapper_class'] = 'balance-due';
   $handler->display->display_options['fields']['balance']['empty'] = 'Paid in full';
   $handler->display->display_options['fields']['balance']['empty_zero'] = TRUE;
-  /* Field: Commerce Order: Order status */
-  $handler->display->display_options['fields']['status']['id'] = 'status';
-  $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['status']['field'] = 'status';
-  /* Field: Commerce Payment Transaction: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Commerce Payment Transaction: Remote ID */
-  $handler->display->display_options['fields']['remote_id']['id'] = 'remote_id';
-  $handler->display->display_options['fields']['remote_id']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['remote_id']['field'] = 'remote_id';
-  /* Field: Commerce Payment Transaction: Amount */
-  $handler->display->display_options['fields']['amount']['id'] = 'amount';
-  $handler->display->display_options['fields']['amount']['table'] = 'commerce_payment_transaction';
-  $handler->display->display_options['fields']['amount']['field'] = 'amount';
-  $handler->display->display_options['fields']['amount']['label'] = 'Transaction amount';
-  /* Filter criterion: Commerce Order: Order status */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = array(
-    'pending' => 'pending',
-    'processing' => 'processing',
-    'ready_for_pickup' => 'ready_for_pickup',
-    'shipped_paid' => 'shipped_paid',
-    'completed' => 'completed',
-  );
-  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
-  $handler->display->display_options['filters']['status']['expose']['label'] = 'Order status';
-  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
-  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
-  $handler->display->display_options['filters']['status']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    7 => 0,
-    4 => 0,
-    6 => 0,
-    5 => 0,
-    9 => 0,
-    8 => 0,
-  );
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'balance_due');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Commerce Payment Transaction: Order ID */
   $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
   $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_payment_transaction';
   $handler->display->display_options['arguments']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['arguments']['order_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['order_id']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['order_id']['default_argument_type'] = 'raw';
   $handler->display->display_options['arguments']['order_id']['default_argument_options']['index'] = '3';
   $handler->display->display_options['arguments']['order_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['order_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['order_id']['summary_options']['items_per_page'] = '25';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'balance_due');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['content'] = '<div class="catman-invoice-footer">
+          <p>Thanks for your order!</p>
+
+          <div><strong>If your invoice shows a balance:</strong><br />
+          If you are paying with an OSU index, we will process a journal voucher to complete your payment.<br />
+          If you are paying with a purchase order, payment is due upon receipt of your order. Please forward this invoice to your accounts payable department. Include the invoice or invoice number
+          with your payment. Make checks payable to OSU and send to:</div>
+          <div class="indent-payment">Extension and Experiment Station Communications, Oregon State University, 422 Kerr Administration Bldg., Corvallis, OR 97330-2119</div>
+        </div>';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Commerce Order: Order ID */
+  $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_order';
+  $handler->display->display_options['arguments']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['arguments']['order_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['order_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['order_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['order_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['order_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['order_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['order_id']['validate']['type'] = 'numeric';
+  $handler->display->display_options['arguments']['order_id']['validate']['fail'] = 'empty';
+
+  /* Display: Invoice Header */
+  $handler = $view->new_display('block', 'Invoice Header', 'header_block');
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<h3 class="field-label">Extension and Experiment Station Communications</h3>
+  <div>Oregon State University<br />
+    422 Kerr Administration Bldg.<br />
+    Corvallis, OR 97331-2119<br />
+    Phone: 541-737-2513 or 800-561-6719
+  </div>
+  <div>Email: puborders@oregonstate.edu</div>
+  <div>http://extension.oregonstate.edu/catalog</div>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Order ID */
+  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $export['catman_order_payments'] = $view;
 
   $view = new view();
@@ -668,15 +600,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Catman Invoice: Created date */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
   $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  $handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d/Y';
-  $handler->display->display_options['fields']['created']['format_date_sql'] = 0;
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
@@ -1152,15 +1081,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Catman Invoice: Created date */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
   $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  $handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d/Y';
-  $handler->display->display_options['fields']['created']['format_date_sql'] = 0;
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
@@ -1481,15 +1407,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Catman Invoice: Created date */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
   $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  $handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d/Y';
-  $handler->display->display_options['fields']['created']['format_date_sql'] = 0;
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
@@ -1721,12 +1644,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
-  /* Field: Catman Invoice: Invoice number */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['invoice_number']['id'] = 'invoice_number';
   $handler->display->display_options['fields']['invoice_number']['table'] = 'commerce_invoice';
   $handler->display->display_options['fields']['invoice_number']['field'] = 'invoice_number';
   $handler->display->display_options['fields']['invoice_number']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['invoice_number']['link_to_invoice'] = 'admin';
+  $handler->display->display_options['fields']['invoice_number']['label'] = 'Invoice number';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
@@ -2052,11 +1975,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  /* Field: Catman Invoice: Invoice number */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['invoice_number']['id'] = 'invoice_number';
   $handler->display->display_options['fields']['invoice_number']['table'] = 'commerce_invoice';
   $handler->display->display_options['fields']['invoice_number']['field'] = 'invoice_number';
   $handler->display->display_options['fields']['invoice_number']['relationship'] = 'invoice_id';
+  $handler->display->display_options['fields']['invoice_number']['label'] = 'Invoice number';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
