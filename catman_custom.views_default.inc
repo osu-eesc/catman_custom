@@ -273,6 +273,100 @@ function catman_custom_views_default_views() {
   /* Display: Inventory Value Report */
   $handler = $view->new_display('page', 'Inventory Value Report', 'page');
   $handler->display->display_options['defaults']['group_by'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Product: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'product' => 'product',
+  );
+  /* Filter criterion: Commerce Product: SKU */
+  $handler->display->display_options['filters']['sku']['id'] = 'sku';
+  $handler->display->display_options['filters']['sku']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['sku']['field'] = 'sku';
+  $handler->display->display_options['filters']['sku']['operator'] = 'contains';
+  $handler->display->display_options['filters']['sku']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['sku']['expose']['operator_id'] = 'sku_op';
+  $handler->display->display_options['filters']['sku']['expose']['label'] = 'Series number contains';
+  $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
+  $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
+  $handler->display->display_options['filters']['sku']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    7 => 0,
+    4 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Commerce Product: Quanity available (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['identifier'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    7 => 0,
+    4 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['label'] = 'Quanity available (commerce_stock)';
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['identifier'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  /* Filter criterion: Content: Mode of delivery (field_mode_of_delivery) */
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['id'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['table'] = 'field_data_field_mode_of_delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['field'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['value'] = array(
+    3 => '3',
+    4 => '4',
+  );
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator_id'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['label'] = 'Mode of delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['identifier'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['group_info']['label'] = 'Mode of delivery (field_mode_of_delivery)';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['group_info']['identifier'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/inventory';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Inventory';
@@ -600,19 +694,14 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
   $handler->display->display_options['fields']['changed_1']['field'] = 'changed';
   $handler->display->display_options['fields']['changed_1']['relationship'] = 'payment_transaction';
   $handler->display->display_options['fields']['changed_1']['label'] = 'Payment date';
-  $handler->display->display_options['fields']['changed_1']['date_format'] = 'short';
+  $handler->display->display_options['fields']['changed_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['changed_1']['date_format'] = 'm_d_y';
   $handler->display->display_options['fields']['changed_1']['format_date_sql'] = 0;
   /* Field: Commerce Order: Order total */
   $handler->display->display_options['fields']['commerce_order_total_1']['id'] = 'commerce_order_total_1';
@@ -811,9 +900,293 @@ function catman_custom_views_default_views() {
   $handler = $view->new_display('page', 'Reconciliation Report', 'catman_recon_by_method');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Reconciliation Report - totals by payment method';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'tablesummarized';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'payment_method',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+    1 => array(
+      'field' => 'changed_1',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['columns'] = array(
+    'transaction_id' => 'transaction_id',
+    'order_id' => 'order_id',
+    'changed_1' => 'changed_1',
+    'commerce_order_total_1' => 'commerce_order_total_1',
+    'amount' => 'amount',
+    'balance' => 'balance',
+    'status' => 'status',
+    'payment_method' => 'payment_method',
+    'changed' => 'changed',
+    'message' => 'message',
+    'operations_dropbutton' => 'operations_dropbutton',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'transaction_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'order_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'count',
+    ),
+    'changed_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'commerce_order_total_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'amount' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'balance' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'status' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'payment_method' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'changed' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'message' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'operations_dropbutton' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
-  $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Payment Transaction: Transaction ID */
+  $handler->display->display_options['fields']['transaction_id']['id'] = 'transaction_id';
+  $handler->display->display_options['fields']['transaction_id']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['transaction_id']['field'] = 'transaction_id';
+  $handler->display->display_options['fields']['transaction_id']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['transaction_id']['separator'] = '';
+  /* Field: Commerce Order: Order ID */
+  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
+  $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed_1']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['label'] = '';
+  $handler->display->display_options['fields']['changed_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['changed_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['changed_1']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['changed_1']['custom_date_format'] = 'l m/d/Y';
+  $handler->display->display_options['fields']['changed_1']['format_date_sql'] = 0;
+  /* Field: Commerce Order: Order total */
+  $handler->display->display_options['fields']['commerce_order_total_1']['id'] = 'commerce_order_total_1';
+  $handler->display->display_options['fields']['commerce_order_total_1']['table'] = 'field_data_commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['field'] = 'commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_order_total_1']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  $handler->display->display_options['fields']['commerce_order_total_1']['group_column'] = 'amount';
+  /* Field: Commerce Payment Transaction: Amount */
+  $handler->display->display_options['fields']['amount']['id'] = 'amount';
+  $handler->display->display_options['fields']['amount']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['amount']['field'] = 'amount';
+  $handler->display->display_options['fields']['amount']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['amount']['label'] = 'Transaction Amount';
+  /* Field: Commerce Order: Order Balance */
+  $handler->display->display_options['fields']['balance']['id'] = 'balance';
+  $handler->display->display_options['fields']['balance']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['balance']['field'] = 'balance';
+  /* Field: Commerce Order: Order status */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['relationship'] = 'payment_transaction';
+  /* Field: Commerce Payment Transaction: Payment method */
+  $handler->display->display_options['fields']['payment_method']['id'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['field'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['alter']['text'] = '[payment_method] - [message] ';
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed']['id'] = 'changed';
+  $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed']['label'] = 'Payment date';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'short';
+  $handler->display->display_options['fields']['changed']['format_date_sql'] = 0;
+  /* Field: Commerce Payment Transaction: Message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Operations links (Dropbutton) */
+  $handler->display->display_options['fields']['operations_dropbutton']['id'] = 'operations_dropbutton';
+  $handler->display->display_options['fields']['operations_dropbutton']['table'] = 'views_entity_commerce_order';
+  $handler->display->display_options['fields']['operations_dropbutton']['field'] = 'operations_dropbutton';
+  $handler->display->display_options['fields']['operations_dropbutton']['label'] = '';
+  $handler->display->display_options['fields']['operations_dropbutton']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['operations_dropbutton']['add_destination'] = 1;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Order: Order status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = array(
+    'shipped_paid' => 'shipped_paid',
+    'completed' => 'completed',
+  );
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Order status';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Commerce Payment Transaction: Payment method */
+  $handler->display->display_options['filters']['payment_method']['id'] = 'payment_method';
+  $handler->display->display_options['filters']['payment_method']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['filters']['payment_method']['field'] = 'payment_method';
+  $handler->display->display_options['filters']['payment_method']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['filters']['payment_method']['value'] = array(
+    'commerce_payment_example' => 'commerce_payment_example',
+    'commerce_purchase_order' => 'commerce_purchase_order',
+    'touchnet_upay' => 'touchnet_upay',
+  );
+  $handler->display->display_options['filters']['payment_method']['group'] = 1;
+  $handler->display->display_options['filters']['payment_method']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['payment_method']['expose']['operator_id'] = 'payment_method_op';
+  $handler->display->display_options['filters']['payment_method']['expose']['label'] = 'Payment method';
+  $handler->display->display_options['filters']['payment_method']['expose']['operator'] = 'payment_method_op';
+  $handler->display->display_options['filters']['payment_method']['expose']['identifier'] = 'payment_method';
+  $handler->display->display_options['filters']['payment_method']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['payment_method']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    7 => 0,
+    4 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Date: Date (commerce_payment_transaction) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['filters']['date_filter']['operator'] = 'between';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Payment date';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    7 => 0,
+    4 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['date_filter']['group_info']['label'] = 'Date (commerce_payment_transaction)';
+  $handler->display->display_options['filters']['date_filter']['group_info']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['date_filter']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  $handler->display->display_options['filters']['date_filter']['form_type'] = 'date_popup';
+  $handler->display->display_options['filters']['date_filter']['default_date'] = '-1 day';
+  $handler->display->display_options['filters']['date_filter']['default_to_date'] = 'now -1 day';
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '2014:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'commerce_payment_transaction.changed' => 'commerce_payment_transaction.changed',
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/reconciliation';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Reconciliation - by payment method';
@@ -1045,10 +1418,11 @@ function catman_custom_views_default_views() {
     'commerce_payment_transaction.changed' => 'commerce_payment_transaction.changed',
   );
   $handler->display->display_options['displays'] = array(
-    'catman_recon_by_method' => 'catman_recon_by_method',
     'default' => 0,
     'catman_dashboard' => 0,
+    'catman_recon_by_method' => 0,
     'catman_recon_all_methods' => 0,
+    'unpaid_invoices' => 0,
   );
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
@@ -1081,12 +1455,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
@@ -1148,10 +1516,181 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['display_description'] = 'Shows report for all payment methods';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'tablesummarized';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'changed_1',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['columns'] = array(
+    'transaction_id' => 'transaction_id',
+    'order_id' => 'order_id',
+    'changed_1' => 'changed_1',
+    'commerce_order_total_1' => 'commerce_order_total_1',
+    'amount' => 'amount',
+    'balance' => 'balance',
+    'status' => 'status',
+    'payment_method' => 'payment_method',
+    'message' => 'message',
+    'operations_dropbutton' => 'operations_dropbutton',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'transaction_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'order_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'changed_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'commerce_order_total_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'amount' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'balance' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'status' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'payment_method' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'message' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'operations_dropbutton' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+  );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
+  $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed_1']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['label'] = '';
+  $handler->display->display_options['fields']['changed_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['changed_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['changed_1']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['changed_1']['custom_date_format'] = 'l m/d/Y';
+  $handler->display->display_options['fields']['changed_1']['format_date_sql'] = 0;
+  /* Field: Commerce Payment Transaction: Transaction ID */
+  $handler->display->display_options['fields']['transaction_id']['id'] = 'transaction_id';
+  $handler->display->display_options['fields']['transaction_id']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['transaction_id']['field'] = 'transaction_id';
+  $handler->display->display_options['fields']['transaction_id']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['transaction_id']['separator'] = '';
+  /* Field: Commerce Order: Order ID */
+  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
+  /* Field: Commerce Order: Order total */
+  $handler->display->display_options['fields']['commerce_order_total_1']['id'] = 'commerce_order_total_1';
+  $handler->display->display_options['fields']['commerce_order_total_1']['table'] = 'field_data_commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['field'] = 'commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_order_total_1']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  $handler->display->display_options['fields']['commerce_order_total_1']['group_column'] = 'amount';
+  /* Field: Commerce Payment Transaction: Amount */
+  $handler->display->display_options['fields']['amount']['id'] = 'amount';
+  $handler->display->display_options['fields']['amount']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['amount']['field'] = 'amount';
+  $handler->display->display_options['fields']['amount']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['amount']['label'] = 'Transaction Amount';
+  /* Field: Commerce Order: Order Balance */
+  $handler->display->display_options['fields']['balance']['id'] = 'balance';
+  $handler->display->display_options['fields']['balance']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['balance']['field'] = 'balance';
+  /* Field: Commerce Order: Order status */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['relationship'] = 'payment_transaction';
+  /* Field: Commerce Payment Transaction: Payment method */
+  $handler->display->display_options['fields']['payment_method']['id'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['field'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['alter']['text'] = '[payment_method] - [message] ';
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed']['id'] = 'changed';
+  $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed']['label'] = 'Payment date';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'short';
+  $handler->display->display_options['fields']['changed']['format_date_sql'] = 0;
+  /* Field: Commerce Payment Transaction: Message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Operations links (Dropbutton) */
+  $handler->display->display_options['fields']['operations_dropbutton']['id'] = 'operations_dropbutton';
+  $handler->display->display_options['fields']['operations_dropbutton']['table'] = 'views_entity_commerce_order';
+  $handler->display->display_options['fields']['operations_dropbutton']['field'] = 'operations_dropbutton';
+  $handler->display->display_options['fields']['operations_dropbutton']['label'] = '';
+  $handler->display->display_options['fields']['operations_dropbutton']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['operations_dropbutton']['add_destination'] = 1;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Order: Order status */
@@ -1159,11 +1698,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = array(
-    'pending' => 'pending',
-    'processing' => 'processing',
-    'ready_for_pickup' => 'ready_for_pickup',
     'shipped_paid' => 'shipped_paid',
-    'shipped_unpaid' => 'shipped_unpaid',
     'completed' => 'completed',
   );
   $handler->display->display_options['filters']['status']['group'] = 1;
@@ -1176,13 +1711,13 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
-    7 => 0,
-    4 => 0,
+    8 => 0,
     6 => 0,
     5 => 0,
     9 => 0,
-    8 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
   );
   /* Filter criterion: Date: Date (commerce_payment_transaction) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
@@ -1371,10 +1906,11 @@ function catman_custom_views_default_views() {
     'commerce_payment_transaction.changed' => 'commerce_payment_transaction.changed',
   );
   $handler->display->display_options['displays'] = array(
-    'catman_recon_all_methods' => 'catman_recon_all_methods',
     'default' => 0,
     'catman_dashboard' => 0,
     'catman_recon_by_method' => 0,
+    'catman_recon_all_methods' => 0,
+    'unpaid_invoices' => 0,
   );
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
@@ -1542,16 +2078,23 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Unpaid Invoices Report';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_plugin'] = 'tablesummarized';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'changed',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
   $handler->display->display_options['style_options']['columns'] = array(
     'order_number' => 'order_number',
-    'invoice_number' => 'invoice_number',
     'changed' => 'changed',
     'commerce_customer_billing' => 'commerce_customer_billing',
     'commerce_order_total_1' => 'commerce_order_total_1',
     'balance' => 'balance',
     'status' => 'status',
     'payment_method' => 'payment_method',
+    'changed_1' => 'changed_1',
     'message' => 'message',
     'operations_dropbutton' => 'operations_dropbutton',
   );
@@ -1563,13 +2106,7 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
-    ),
-    'invoice_number' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
+      'summarize' => 'count',
     ),
     'changed' => array(
       'sortable' => 0,
@@ -1577,6 +2114,7 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'commerce_customer_billing' => array(
       'sortable' => 0,
@@ -1584,32 +2122,45 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'commerce_order_total_1' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => 'views-align-right',
+      'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'balance' => array(
-      'align' => 'views-align-right',
+      'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'currency',
     ),
     'status' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'payment_method' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'changed_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'message' => array(
       'sortable' => 0,
@@ -1617,17 +2168,18 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
     'operations_dropbutton' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
+      'summarize' => 'none',
     ),
   );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Commerce Order: Invoice */
   $handler->display->display_options['relationships']['invoice_id']['id'] = 'invoice_id';
@@ -1644,12 +2196,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['invoice_number']['id'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['invoice_number']['field'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['invoice_number']['label'] = 'Invoice number';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
@@ -1694,6 +2240,14 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['payment_method']['field'] = 'payment_method';
   $handler->display->display_options['fields']['payment_method']['relationship'] = 'payment_transaction';
   $handler->display->display_options['fields']['payment_method']['alter']['text'] = '[payment_method] - [message] ';
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
+  $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed_1']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['label'] = 'Payment date';
+  $handler->display->display_options['fields']['changed_1']['date_format'] = 'm_d_y';
+  $handler->display->display_options['fields']['changed_1']['format_date_sql'] = 0;
   /* Field: Commerce Payment Transaction: Message */
   $handler->display->display_options['fields']['message']['id'] = 'message';
   $handler->display->display_options['fields']['message']['table'] = 'commerce_payment_transaction';
@@ -1751,13 +2305,13 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
-    7 => 0,
-    4 => 0,
+    8 => 0,
     6 => 0,
     5 => 0,
     9 => 0,
-    8 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
   );
   $handler->display->display_options['filters']['date_filter']['group_info']['label'] = 'Date (commerce_payment_transaction)';
   $handler->display->display_options['filters']['date_filter']['group_info']['identifier'] = 'date_filter';
@@ -1768,8 +2322,6 @@ function catman_custom_views_default_views() {
     3 => array(),
   );
   $handler->display->display_options['filters']['date_filter']['form_type'] = 'date_popup';
-  $handler->display->display_options['filters']['date_filter']['default_date'] = '-1 day';
-  $handler->display->display_options['filters']['date_filter']['default_to_date'] = 'now -1 day';
   $handler->display->display_options['filters']['date_filter']['year_range'] = '2014:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'commerce_payment_transaction.changed' => 'commerce_payment_transaction.changed',
@@ -1945,11 +2497,11 @@ function catman_custom_views_default_views() {
     'commerce_payment_transaction.changed' => 'commerce_payment_transaction.changed',
   );
   $handler->display->display_options['displays'] = array(
-    'unpaid_invoices' => 'unpaid_invoices',
     'default' => 0,
     'catman_dashboard' => 0,
     'catman_recon_by_method' => 0,
     'catman_recon_all_methods' => 0,
+    'unpaid_invoices' => 0,
   );
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
@@ -1975,17 +2527,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['invoice_number']['id'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['invoice_number']['field'] = 'invoice_number';
-  $handler->display->display_options['fields']['invoice_number']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['invoice_number']['label'] = 'Invoice number';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'commerce_payment_transaction';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
   $handler->display->display_options['fields']['changed']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed']['label'] = 'Payment date';
   $handler->display->display_options['fields']['changed']['date_format'] = 'custom';
   $handler->display->display_options['fields']['changed']['custom_date_format'] = 'l m/d/Y';
   $handler->display->display_options['fields']['changed']['format_date_sql'] = 0;

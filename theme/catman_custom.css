@@ -164,6 +164,10 @@ div.view-id-catman_inventory {
   margin-top: 0 !important;
 }
 
+.form-item-htmlmail-plaintext {
+  display: none;
+}
+
 
 
 
