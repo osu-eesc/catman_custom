@@ -72,14 +72,15 @@ function catman_custom_node_view($node, $view_mode, $langcode) {
  * Implements hook_form_submit().
  */
 function osu_catalog_publication_node_form_submit($form, &$form_state) {
+    //dpm($form, 'form array');
 
   if ($form_state['values']['field_add_to_store']['und'][0]['value'] == 0) {
     //unset($form_state['values']['field_publication_product']['und'][0]['value']);
     unset($node->field_publication_product);
   }
-//dpm($form_state, 'form_state');
-  // get node alias for use in file/link redirects
-  //$aliaspath = $form_state['values']['field_series_prefix']['und'][0]['value'] . $form_state['values']['field_series_number']['und'][0]['value'] . strtolower($form_state['values']['field_series_suffix']['und'][0]['value']);
+
+
+   // get node alias for use in file/link redirects and for setting SKU
   $aliaspath = strtolower($form_state['build_info']['args'][0]->field_series_prefix['und'][0]['value']) . $form_state['build_info']['args'][0]->field_series_number['und'][0]['value'] . strtolower($form_state['build_info']['args'][0]->field_series_suffix['und'][0]['value']);
 
   // set redirect source paths
@@ -591,6 +592,25 @@ function catman_custom_library() {
       array('system', 'ui.widget'),
     ),
   );
+  $library = libraries_get_path('stacktable.js');
+
+  $libraries['stacktable.js'] = array(
+    'title' => 'Stacktable.js',
+    'website' => 'http://johnpolacek.github.io/stacktable.js',
+    'download url' => 'https://github.com/johnpolacek/stacktable.js/zipball/master',
+    'version' => array(),
+    'js' => array(
+      $library . '/stacktable.js' => array(
+        'scope' => 'header',
+      ),
+    ),
+    'css' => array(
+      $library . '/stacktable.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+  );
   return $libraries;
 }
 
@@ -607,7 +627,7 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
   //dpm($form, 'form array');
   if (strstr($form_id, 'commerce_cart_add_to_cart_form')) {
     $form['#attached']['library'][] = array('catman_custom', 'jquery_ui_spinner');
-     $form['#attached']['js'][] = drupal_get_path('module', 'catman_custom') . '/js/catman_custom.js';
+    $form['#attached']['js'][] = drupal_get_path('module', 'catman_custom') . '/js/catman_custom.js';
   }
 
 
@@ -625,19 +645,14 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
 
   switch ($form_id) {
 
-
-
     case 'osu_catalog_publication_node_form':
-
       $form['field_supplemental_file']['und'][0]['#description'] = t('');
 
       break;
 
 
     case 'commerce_checkout_form_review':
-
       global $user;
-
       if (in_array('OSU affiliate', array_values($user->roles)) || in_array('Reseller', array_values($user->roles)) || in_array('PNW', array_values($user->roles)) ) {
         $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order or OSU index');
         $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
@@ -645,18 +660,23 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
 
     break;
 
-    case 'commerce_cart_add_to_cart_form':
-    //  // if (strstr($form_id, 'commerce_cart_add_to_cart_form')) {
+    case 'commerce_checkout_form_checkout':
+    case 'commerce_checkout_form_review':
+      $form['#attached']['library'][] = array('catman_custom', 'stacktable.js');
+      $form['#attached']['js'][] = drupal_get_path('module', 'catman_custom') . '/js/stacktable.module.js';
 
-    // // Add quantity spinner widget
-    // $form['#attached']['libraries_load'][] = array('jquery_ui_spinner');
-
-    // // Rename add-to-cart form fields label (quantity, color, size)
-    // $form['quantity']['#title'] = t('Enter quantity');
+      // We don't know if other view tables exist.
+      $form['#attached']['js'][] = array(
+        'data' => array('hivqld' => array(
+          'table' => '.' . drupal_html_class($form_id) . ' .views-table'),
+        ),
+        'type' => 'setting',
+      );
     break;
   }
-
 }
+
+
 
 
 /**
