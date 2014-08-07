@@ -761,3 +761,45 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
 // }
 
 
+/**
+ * Allows modules to alter the default content creation page.
+ *
+ * Worekbench supplies a Create Content tab which emulates core's
+ * node/add page. The render array for this page may be modified
+ * by other modules.
+ *
+ * @param $output
+ *  A Render API array of content items, passed by reference.
+ *
+ * @see workbench_create()
+ */
+function catman_custom_workbench_create_alter(&$output) {
+  // Example taken from Workbench Media module.
+
+  // Mimic node_add_page() theming.
+  $items = array(
+    array(
+      'title' => t('Project'),
+      'href' => 'node/add/osu-catalog-publication',
+      'localized_options' => array(),
+      'description' => t('Create new <em>Project</em> (publication).'),
+    )
+  );
+  $output['field_workbench_create_media'] = array(
+    '#title' => t('Add new project'),
+    '#markup' => theme('node_add_list', array('content' => $items)),
+    '#theme' => 'workbench_element',
+    '#weight' => -1,
+  );
+}
+
+
+/**
+* Implements hook_menu_alter.
+* Unset the view drafts tab (workbench_moderation).
+*/
+function catman_custom_menu_alter(&$items) {
+  // Unset core path
+  unset($items["node/%node/draft"]);
+
+}
