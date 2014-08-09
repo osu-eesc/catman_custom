@@ -12,8 +12,8 @@ function catman_custom_views_default_views() {
 
   $view = new view();
   $view->name = 'catman_inventory';
-  $view->description = 'High';
-  $view->tag = 'default';
+  $view->description = '';
+  $view->tag = 'catman';
   $view->base_table = 'commerce_product';
   $view->human_name = 'Catman Inventory Value Report';
   $view->core = 7;
@@ -211,6 +211,10 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['expression']['precision'] = '2';
   $handler->display->display_options['fields']['expression']['prefix'] = '$';
   $handler->display->display_options['fields']['expression']['expression'] = 'f(x) = ([field_cost_per_copy_1] * [commerce_stock]) / 100;  f(2)';
+  /* Sort criterion: Commerce Product: Quanity available (commerce_stock) */
+  $handler->display->display_options['sorts']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['sorts']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['sorts']['commerce_stock_value']['field'] = 'commerce_stock_value';
   /* Filter criterion: Commerce Product: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
@@ -244,7 +248,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
-  $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['use_operator'] = TRUE;
@@ -391,12 +394,244 @@ function catman_custom_views_default_views() {
     'page' => 'page',
     'default' => 0,
   );
+
+  /* Display: Low stock report */
+  $handler = $view->new_display('block', 'Low stock report', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Catman Low Stock';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Refresh report';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'sku' => 'sku',
+    'title' => 'title',
+    'title_1' => 'title_1',
+    'field_mode_of_delivery' => 'field_mode_of_delivery',
+    'commerce_price' => 'commerce_price',
+    'field_cost_per_copy' => 'field_cost_per_copy',
+    'commerce_stock' => 'commerce_stock',
+    'field_cost_per_copy_1' => 'field_cost_per_copy_1',
+    'expression' => 'expression',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'sku' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_mode_of_delivery' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_price' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_cost_per_copy' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_stock' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_cost_per_copy_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'expression' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Product: SKU */
+  $handler->display->display_options['fields']['sku']['id'] = 'sku';
+  $handler->display->display_options['fields']['sku']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['sku']['field'] = 'sku';
+  $handler->display->display_options['fields']['sku']['label'] = 'Series #';
+  $handler->display->display_options['fields']['sku']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['sku']['link_to_product'] = 0;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['fields']['title']['label'] = 'Product Title';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  /* Field: Commerce Product: Title */
+  $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['fields']['title_1']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['title_1']['field'] = 'title';
+  $handler->display->display_options['fields']['title_1']['label'] = 'Project Title';
+  $handler->display->display_options['fields']['title_1']['link_to_product'] = 0;
+  /* Field: Content: Mode of delivery */
+  $handler->display->display_options['fields']['field_mode_of_delivery']['id'] = 'field_mode_of_delivery';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['table'] = 'field_data_field_mode_of_delivery';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['field'] = 'field_mode_of_delivery';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_mode_of_delivery']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_mode_of_delivery']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_mode_of_delivery']['field_api_classes'] = TRUE;
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['label'] = 'Retail cost';
+  $handler->display->display_options['fields']['commerce_price']['element_type'] = '0';
+  $handler->display->display_options['fields']['commerce_price']['element_class'] = 'retail-price';
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Field: Commerce Product: Cost per copy */
+  $handler->display->display_options['fields']['field_cost_per_copy']['id'] = 'field_cost_per_copy';
+  $handler->display->display_options['fields']['field_cost_per_copy']['table'] = 'field_data_field_cost_per_copy';
+  $handler->display->display_options['fields']['field_cost_per_copy']['field'] = 'field_cost_per_copy';
+  $handler->display->display_options['fields']['field_cost_per_copy']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_cost_per_copy']['element_class'] = 'cost-per-copy';
+  $handler->display->display_options['fields']['field_cost_per_copy']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cost_per_copy']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_cost_per_copy']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_cost_per_copy']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Commerce Product: Quanity available */
+  $handler->display->display_options['fields']['commerce_stock']['id'] = 'commerce_stock';
+  $handler->display->display_options['fields']['commerce_stock']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['fields']['commerce_stock']['field'] = 'commerce_stock';
+  $handler->display->display_options['fields']['commerce_stock']['label'] = 'Quantity available';
+  $handler->display->display_options['fields']['commerce_stock']['element_class'] = 'quantity-available';
+  $handler->display->display_options['fields']['commerce_stock']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_stock']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['commerce_stock']['settings'] = array(
+    'thousand_separator' => ',',
+    'prefix_suffix' => 0,
+  );
+  /* Field: Commerce Product: Cost per copy */
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['id'] = 'field_cost_per_copy_1';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['table'] = 'field_data_field_cost_per_copy';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['field'] = 'field_cost_per_copy';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['label'] = '';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['type'] = 'commerce_price_raw_amount';
+  $handler->display->display_options['fields']['field_cost_per_copy_1']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['fields']['edit_node']['label'] = 'Operations';
+  $handler->display->display_options['fields']['edit_node']['text'] = 'edit';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Product: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'product' => 'product',
+  );
+  /* Filter criterion: Commerce Product: Quanity available (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '50';
+  $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['identifier'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Mode of delivery (field_mode_of_delivery) */
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['id'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['table'] = 'field_data_field_mode_of_delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['field'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['value'] = array(
+    4 => '4',
+  );
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator_id'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['label'] = 'Mode of delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['identifier'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $export['catman_inventory'] = $view;
 
   $view = new view();
   $view->name = 'catman_order_payments';
   $view->description = 'Display and total an order\'s payment transaction history.';
-  $view->tag = 'commerce';
+  $view->tag = 'catman';
   $view->base_table = 'commerce_payment_transaction';
   $view->human_name = 'Catman order payment';
   $view->core = 0;
@@ -551,7 +786,7 @@ function catman_custom_views_default_views() {
   $view = new view();
   $view->name = 'catman_reports';
   $view->description = 'Custom Catman reports (commerce orders)';
-  $view->tag = 'default';
+  $view->tag = 'catman';
   $view->base_table = 'commerce_order';
   $view->human_name = 'Catman reports';
   $view->core = 7;
@@ -2653,7 +2888,279 @@ function catman_custom_views_default_views() {
     'catman_recon_all_methods' => 0,
   );
   $handler->display->display_options['sitename_title'] = 0;
+
+  /* Display: Unpaid invoices Block */
+  $handler = $view->new_display('block', 'Unpaid invoices Block', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Unpaid Invoices';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Refresh report';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'tablesummarized';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'changed_1',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['columns'] = array(
+    'order_number' => 'order_number',
+    'changed_1' => 'changed_1',
+    'commerce_customer_billing' => 'commerce_customer_billing',
+    'commerce_order_total_1' => 'commerce_order_total_1',
+    'balance' => 'balance',
+    'status' => 'status',
+    'payment_method' => 'payment_method',
+    'changed' => 'changed',
+    'message' => 'message',
+    'operations_dropbutton' => 'operations_dropbutton',
+  );
+  $handler->display->display_options['style_options']['default'] = 'changed_1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'order_number' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'count',
+    ),
+    'changed_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'commerce_customer_billing' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'commerce_order_total_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'balance' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'currency',
+    ),
+    'status' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'payment_method' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'changed' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'message' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+    'operations_dropbutton' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+      'summarize' => 'none',
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
+  /* Field: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
+  $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed_1']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['changed_1']['label'] = '';
+  $handler->display->display_options['fields']['changed_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['changed_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['changed_1']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['changed_1']['custom_date_format'] = 'l m/d/Y';
+  $handler->display->display_options['fields']['changed_1']['second_date_format'] = 'long';
+  $handler->display->display_options['fields']['changed_1']['format_date_sql'] = 0;
+  /* Field: Commerce Order: Bill to */
+  $handler->display->display_options['fields']['commerce_customer_billing']['id'] = 'commerce_customer_billing';
+  $handler->display->display_options['fields']['commerce_customer_billing']['table'] = 'field_data_commerce_customer_billing';
+  $handler->display->display_options['fields']['commerce_customer_billing']['field'] = 'commerce_customer_billing';
+  $handler->display->display_options['fields']['commerce_customer_billing']['element_type'] = '0';
+  $handler->display->display_options['fields']['commerce_customer_billing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_customer_billing']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['commerce_customer_billing']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['commerce_customer_billing']['field_api_classes'] = TRUE;
+  /* Field: Commerce Order: Order total */
+  $handler->display->display_options['fields']['commerce_order_total_1']['id'] = 'commerce_order_total_1';
+  $handler->display->display_options['fields']['commerce_order_total_1']['table'] = 'field_data_commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['field'] = 'commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_order_total_1']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  $handler->display->display_options['fields']['commerce_order_total_1']['group_column'] = 'amount';
+  /* Field: Commerce Order: Order Balance */
+  $handler->display->display_options['fields']['balance']['id'] = 'balance';
+  $handler->display->display_options['fields']['balance']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['balance']['field'] = 'balance';
+  /* Field: Commerce Order: Order status */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['relationship'] = 'payment_transaction';
+  /* Field: Commerce Payment Transaction: Payment method */
+  $handler->display->display_options['fields']['payment_method']['id'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['field'] = 'payment_method';
+  $handler->display->display_options['fields']['payment_method']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['payment_method']['alter']['text'] = '[payment_method] - [message] ';
+  /* Field: Commerce Payment Transaction: Message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['relationship'] = 'payment_transaction';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Edit link */
+  $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
+  $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
+  $handler->display->display_options['fields']['edit_order']['label'] = '';
+  $handler->display->display_options['fields']['edit_order']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_order']['text'] = 'edit';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Order: Order status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = array(
+    'ready_for_pickup' => 'ready_for_pickup',
+    'shipped_unpaid' => 'shipped_unpaid',
+  );
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Order status';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $export['catman_reports'] = $view;
+
+  $view = new view();
+  $view->name = 'help_links';
+  $view->description = 'Simple set of links to documentation, orders, and reports.';
+  $view->tag = 'catman';
+  $view->base_table = 'node';
+  $view->human_name = 'Help links';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Quick links';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    4 => '4',
+    7 => '7',
+  );
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: placeholder to make view validate */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['ui_name'] = 'placeholder to make view validate';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: List of hardcoded links */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
+<li><a href="../admin/commerce/reports">Store reports</a></li>
+  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">How to documents</a></li>
+</ul>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
+  /* Filter criterion: Content: Author uid */
+  $handler->display->display_options['filters']['uid']['id'] = 'uid';
+  $handler->display->display_options['filters']['uid']['table'] = 'node';
+  $handler->display->display_options['filters']['uid']['field'] = 'uid';
+  $handler->display->display_options['filters']['uid']['operator'] = 'not in';
+  $handler->display->display_options['filters']['uid']['value'] = array(
+    0 => '1',
+  );
+
+  /* Display: Block - manager links */
+  $handler = $view->new_display('block', 'Block - manager links', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Quick links';
+  $export['help_links'] = $view;
 
   return $export;
 }
