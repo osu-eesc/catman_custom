@@ -8,37 +8,24 @@ include_once 'catman_custom.features.inc';
 
 
 /**
- * Implements hook_views_api().
- */
-// function catman_custom_order_views_api() {
-
-//   return array(
-//     "version" => "3.0",
-//     'path' => drupal_get_path('module', 'catman_custom') . '/includes/views',
-//   );
-
-// }
-
-
-/**
  * Implements hook_help().
  */
 function catman_custom_help($path, $arg) {
   switch ($path) {
-    case 'admin/commerce/reports/catman':
-      return '<p>' . t('Add Catman dashboard help text') . '</p>';
+    // case 'admin/commerce/reports/catman':
+    //   return '<p>' . t('Catman specific reports') . '</p>';
 
     case 'admin/commerce/reports/catman/inventory':
-      return '<p>' . t('Add Inventory report help info') . '</p>';
+      return '<h3>' . t('Catman Inventory Report') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>' ;
 
     case 'admin/commerce/reports/catman/unpaid-invoices':
-      return '<p>' . t('Add unpaid invoices report help info') . '</p>';
+      return '<h3>' . t('Unpaid Invoices Report') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
 
     case 'admin/commerce/reports/catman/reconciliation-all-payments':
-      return '<p>' . t('Add Account Receivables Reconciliation Report - Totals by date for all payment methods help') . '</p>';
+      return '<h3>' . t('Account Receivables Reconciliation Report - totals by date') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
 
     case 'admin/commerce/reports/catman/reconciliation':
-      return '<p>' . t('Add Account Receivables Reconciliation Report - Totals by payment method report help') . '</p>';
+      return '<h3>' . t('Account Receivables Reconciliation Report - totals by payment method') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
   }
 }
 
@@ -676,89 +663,6 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-
-
-
-/**
- * Implements hook_block_info().
- */
-// function catman_custom_block_info() {
-//   $blocks = array(
-//     'eesc_invoice_header' => array(
-//       'info' => t('EESC header information for invoices'),
-//     ),
-//     'eesc_invoice_footer' => array(
-//       'info' => t('EESC footer information for invoices'),
-//     ),
-//   );
-
-//   return $blocks;
-// }
-
-
-/**
- * Implements hook_block_view().
- */
-// function catman_custom_block_view($delta = '') {
-//   $block = array();
-//   switch ($delta) {
-//     case 'eesc_invoice_header':
-
-//       $block['content'] = t('
-//         <div class="catman-invoice-header">
-//           <div><strong>Extension and Experiment Station Communications</strong></div>
-//           <div>Oregon State University<br />
-//             422 Kerr Administration Bldg.<br />
-//             Corvallis, OR 97331-2119<br />
-//             Phone: 541-737-2513 or 800-561-6719
-//           </div>
-//           <div>Email: puborders@oregonstate.edu</div>
-//           <div>http://extension.oregonstate.edu/catalog</div>
-//         </div>
-//         ');
-//       break;
-
-//     case 'eesc_invoice_footer':
-
-//       $block['content'] = t('
-//         <div class="catman-invoice-footer">
-//           <p>Thanks for your order!</p>
-
-//           <div><strong>If your invoice shows a balance:</strong><br />
-//           If you are paying with an OSU index, we will process a journal voucher to complete your payment.<br />
-//           If you are paying with a purchase order, payment is due upon receipt of your order. Please forward this invoice to your accounts payable department. Include the invoice or invoice number
-//           with your payment. Make checks payable to OSU and send to:</div>
-//           <div class="indent-payment">Extension and Experiment Station Communications, Oregon State University, 422 Kerr Administration Bldg., Corvallis, OR 97330-2119</div>
-//         </div>
-//         ');
-//       break;
-
-//   }
-//   return $block;
-// }
-
-
-/**
- * @file
- * Display Suite Custom Layouts for Catman
- */
-// function catman_custom_ds_layout_info() {
-//   $path = drupal_get_path('module', 'catman_custom') . '/theme';
-//   $layouts = array();
-//   // Fluid Teaser Layout
-//   $layouts['fluid_teaser_layout'] = array(
-//     'label' => t('Fluid Teaser Layout'),
-//     'path' => $path . "/fluid_teaser_layout",
-//     'regions' => array(
-//       'image' => t('Image'),
-//       'contents' => t('Contents'),
-//     ),
-//     'form' => TRUE,
-//     'image' => FALSE,
-//     'css' => TRUE,
-//   );
-//   return $layouts;
-// }
 
 
 /**

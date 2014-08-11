@@ -329,6 +329,17 @@ div.view-id-catman_inventory {
     }
 }
 
+/* reduce footprint of workbench tables  */
+.my-workbench table,
+.my-workbench table th,
+.my-workbench table tr,
+.my-workbench table td {
+  font-size: 0.938em;
+  margin: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 
 
 
