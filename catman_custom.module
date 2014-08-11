@@ -705,6 +705,9 @@ function catman_custom_workbench_create_alter(&$output) {
 function catman_custom_menu_alter(&$items) {
   // Unset core path
   unset($items["node/%node/draft"]);
+  unset($items["admin/content/webform/mysql"]);
+  unset($items["admin/workbench/create/node/add/estimates-expenses"]);
+  unset($items["node/add/add-product"]);
 
   // Re-point the /admin/user/user/create path back to the User module's
   // callback, since Views is taking over /admin/user/user.
@@ -739,8 +742,16 @@ function catman_custom_workbench_content_alter(&$output) {
     '#weight' => '-15',
   );
 
-  $output['catman_reports'] = array(
-    '#view' => 'catman_reports',
+  $output['help_links_pm'] = array(
+    '#view' => 'help_links_pm',
+    '#view_display' => 'block_1',
+    '#attributes' => array('class' => array('right', 'clearfix')),
+    '#theme' => 'workbench_element',
+    '#weight' => '-15',
+  );
+
+  $output['catman_orders'] = array(
+    '#view' => 'catman_orders',
     '#view_display' => 'block_1',
     '#attributes' => array('class' => array('right', 'clearfix')),
     '#theme' => 'workbench_element',
@@ -770,7 +781,7 @@ function catman_custom_workbench_content_alter(&$output) {
     '#view_display' => 'proposals',
     '#attributes' => array('class' => array('clearfix'), 'style' => array('clear: both;')),
     '#theme' => 'workbench_element',
-    // '#weight' => '10',
+    '#weight' => '10',
   );
 
 }

@@ -398,7 +398,7 @@ function catman_custom_views_default_views() {
   /* Display: Low stock report */
   $handler = $view->new_display('block', 'Low stock report', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Catman Low Stock';
+  $handler->display->display_options['title'] = 'Low Stock';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
@@ -570,7 +570,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['relationship'] = 'field_publication_product';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Operations';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'edit';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1103,17 +1104,23 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = 'Catman Dashboard - replace with something meaningful';
+  $handler->display->display_options['header']['area']['content'] = 'Catman Reports Dashboard';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Global: Custom text */
+  /* Field: report links */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'report links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Add details or links to specific reports';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul>
+  <li><a href="/admin/commerce/reports/catman/inventory">Current Inventory Value Report</a></li>
+  <li><a href="/admin/commerce/reports/catman/unpaid-invoices">Unpaid Invoices Report</a></li>
+  <li><a href="/admin/commerce/reports/catman/reconciliation-all-payments">Account Receivables Reconciliation Report - totals by date</a></li>
+  <li><a href="/admin/commerce/reports/catman/reconciliation">Account Receivables Reconciliation Report - totals by payment method</a></li>
+</ul>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
   /* Field: Commerce Order: Order ID */
@@ -2308,8 +2315,8 @@ function catman_custom_views_default_views() {
   );
   $handler->display->display_options['sitename_title'] = 0;
 
-  /* Display: Unpaid invoices  */
-  $handler = $view->new_display('page', 'Unpaid invoices ', 'unpaid_invoices');
+  /* Display: Unpaid Invoices Report */
+  $handler = $view->new_display('page', 'Unpaid Invoices Report', 'unpaid_invoices');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Unpaid Invoices Report';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -2916,9 +2923,8 @@ function catman_custom_views_default_views() {
     'balance' => 'balance',
     'status' => 'status',
     'payment_method' => 'payment_method',
-    'changed' => 'changed',
     'message' => 'message',
-    'operations_dropbutton' => 'operations_dropbutton',
+    'edit_order' => 'edit_order',
   );
   $handler->display->display_options['style_options']['default'] = 'changed_1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -2928,7 +2934,7 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
-      'summarize' => 'count',
+      'summarize' => 'none',
     ),
     'changed_1' => array(
       'sortable' => 0,
@@ -2958,7 +2964,7 @@ function catman_custom_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
-      'summarize' => 'currency',
+      'summarize' => 'none',
     ),
     'status' => array(
       'sortable' => 0,
@@ -2976,14 +2982,6 @@ function catman_custom_views_default_views() {
       'empty_column' => 0,
       'summarize' => 'none',
     ),
-    'changed' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-      'summarize' => 'none',
-    ),
     'message' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -2992,7 +2990,7 @@ function catman_custom_views_default_views() {
       'empty_column' => 0,
       'summarize' => 'none',
     ),
-    'operations_dropbutton' => array(
+    'edit_order' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -3108,12 +3106,11 @@ function catman_custom_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Quick links';
+  $handler->display->display_options['title'] = 'Quick links - store manager';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
-    4 => '4',
     7 => '7',
   );
   $handler->display->display_options['cache']['type'] = 'none';
@@ -3142,8 +3139,10 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
+  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
 <li><a href="../admin/commerce/reports">Store reports</a></li>
-  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">How to documents</a></li>
+<li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
+<li><a href="../node/add/author">Add author</a></li>
 </ul>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
@@ -3156,11 +3155,72 @@ function catman_custom_views_default_views() {
     0 => '1',
   );
 
-  /* Display: Block - manager links */
-  $handler = $view->new_display('block', 'Block - manager links', 'block_1');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Quick links';
+  /* Display: Block - store manager */
+  $handler = $view->new_display('block', 'Block - store manager', 'block_1');
   $export['help_links'] = $view;
+
+  $view = new view();
+  $view->name = 'help_links_pm';
+  $view->description = 'Simple set of links to documentation, orders, and reports.';
+  $view->tag = 'catman';
+  $view->base_table = 'node';
+  $view->human_name = 'Help links - project manager';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Quick links - project manager';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    4 => '4',
+  );
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: placeholder to make view validate */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['ui_name'] = 'placeholder to make view validate';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: List of hardcoded links */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
+  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+<li><a href="../node/add/osu-catalog-publication">Add project</a></li>
+<li><a href="../node/add/author">Add author</a></li>
+</ul>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
+  /* Filter criterion: Content: Author uid */
+  $handler->display->display_options['filters']['uid']['id'] = 'uid';
+  $handler->display->display_options['filters']['uid']['table'] = 'node';
+  $handler->display->display_options['filters']['uid']['field'] = 'uid';
+  $handler->display->display_options['filters']['uid']['operator'] = 'not in';
+  $handler->display->display_options['filters']['uid']['value'] = array(
+    0 => '1',
+  );
+
+  /* Display: Block - project manager */
+  $handler = $view->new_display('block', 'Block - project manager', 'block_1');
+  $export['help_links_pm'] = $view;
 
   return $export;
 }
