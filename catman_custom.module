@@ -66,6 +66,9 @@ function osu_catalog_publication_node_form_submit($form, &$form_state) {
     unset($node->field_publication_product);
   }
 
+  // combine series prefix, number, and suffix
+  $form_state['values']['field_full_series_number']['und'][0]['value'] = strtoupper($form_state['values']['field_series_prefix']['und'][0]['value']) . ' ' . $form_state['values']['field_series_number']['und'][0]['value'] . $form_state['values']['field_series_suffix']['und'][0]['value'];
+
 
    // get node alias for use in file/link redirects and for setting SKU
   $aliaspath = strtolower($form_state['build_info']['args'][0]->field_series_prefix['und'][0]['value']) . $form_state['build_info']['args'][0]->field_series_number['und'][0]['value'] . strtolower($form_state['build_info']['args'][0]->field_series_suffix['und'][0]['value']);
@@ -768,12 +771,28 @@ function catman_custom_workbench_content_alter(&$output) {
   );
 
 
-  $output['workbench_edited'] = array(
-    '#view' => 'workbench_edited',
+  // $output['workbench_edited'] = array(
+  //   '#view' => 'workbench_edited',
+  //   '#view_display' => 'block_1',
+  //   '#attributes' => array('class' => array('right', 'clearfix')),
+  //   '#theme' => 'workbench_element',
+  //   '#weight' => '-5',
+  // );
+
+  $output['content_edited'] = array(
+    '#view' => 'content_edited',
     '#view_display' => 'block_1',
     '#attributes' => array('class' => array('right', 'clearfix')),
     '#theme' => 'workbench_element',
     '#weight' => '-5',
+  );
+
+  $output['admin_content'] = array(
+    '#view' => 'admin_content',
+    '#view_display' => 'block_1',
+    '#attributes' => array('class' => array('clearfix'), 'style' => array('clear: both;')),
+    '#theme' => 'workbench_element',
+    '#weight' => '10',
   );
 
   $output['master_proposal_list'] = array(
@@ -781,7 +800,7 @@ function catman_custom_workbench_content_alter(&$output) {
     '#view_display' => 'proposals',
     '#attributes' => array('class' => array('clearfix'), 'style' => array('clear: both;')),
     '#theme' => 'workbench_element',
-    '#weight' => '10',
+    '#weight' => '20',
   );
 
 }
