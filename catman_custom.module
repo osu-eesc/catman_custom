@@ -771,13 +771,14 @@ function catman_custom_workbench_content_alter(&$output) {
   );
 
 
-  // $output['workbench_edited'] = array(
-  //   '#view' => 'workbench_edited',
-  //   '#view_display' => 'block_1',
-  //   '#attributes' => array('class' => array('right', 'clearfix')),
-  //   '#theme' => 'workbench_element',
-  //   '#weight' => '-5',
-  // );
+  $output['commerce_backoffice_all_product_variations'] = array(
+    '#view' => 'commerce_backoffice_all_product_variations',
+    '#view_display' => 'block_1',
+    '#attributes' => array('class' => array('right', 'clearfix')),
+    '#theme' => 'workbench_element',
+    '#weight' => '-6',
+  );
+
 
   $output['content_edited'] = array(
     '#view' => 'content_edited',

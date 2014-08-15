@@ -202,7 +202,7 @@ function catman_custom_views_default_views() {
       'label' => '',
     ),
     'action::node_save_action' => array(
-      'selected' => 0,
+      'selected' => 1,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -287,11 +287,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['relationship'] = 'uid';
   $handler->display->display_options['fields']['name']['label'] = 'Created by';
-  /* Field: Content: Published */
-  $handler->display->display_options['fields']['status']['id'] = 'status';
-  $handler->display->display_options['fields']['status']['table'] = 'node';
-  $handler->display->display_options['fields']['status']['field'] = 'status';
-  $handler->display->display_options['fields']['status']['not'] = 0;
   /* Field: Content: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'node';
@@ -317,6 +312,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
   /* Filter criterion: Global: Combine fields filter */
   $handler->display->display_options['filters']['combine']['id'] = 'combine';
   $handler->display->display_options['filters']['combine']['table'] = 'views';
@@ -374,6 +375,62 @@ function catman_custom_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Global: Combine fields filter */
+  $handler->display->display_options['filters']['combine']['id'] = 'combine';
+  $handler->display->display_options['filters']['combine']['table'] = 'views';
+  $handler->display->display_options['filters']['combine']['field'] = 'combine';
+  $handler->display->display_options['filters']['combine']['operator'] = 'contains';
+  $handler->display->display_options['filters']['combine']['group'] = 1;
+  $handler->display->display_options['filters']['combine']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['combine']['expose']['operator_id'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['label'] = 'Search';
+  $handler->display->display_options['filters']['combine']['expose']['description'] = 'Filter by title or series number';
+  $handler->display->display_options['filters']['combine']['expose']['operator'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['identifier'] = 'combine';
+  $handler->display->display_options['filters']['combine']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['combine']['group_info']['label'] = 'Combine fields filter';
+  $handler->display->display_options['filters']['combine']['group_info']['identifier'] = 'combine';
+  $handler->display->display_options['filters']['combine']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['combine']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  $handler->display->display_options['filters']['combine']['fields'] = array(
+    'field_full_series_number' => 'field_full_series_number',
+    'title' => 'title',
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/content';
 
   /* Display: Block */
@@ -694,6 +751,16 @@ function catman_custom_views_default_views() {
       'summarize' => 'currency',
     ),
   );
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['label'] = 'default no results message';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<h3>Sorry. I couldn\'t find any items matching your search.</h3>
+
+<p class="kitten">Try changing your search criteria.<br />Good luck! - Catman Jr.</p>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Relationship: Commerce Product: Referencing Node */
   $handler->display->display_options['relationships']['field_publication_product']['id'] = 'field_publication_product';
   $handler->display->display_options['relationships']['field_publication_product']['table'] = 'commerce_product';
@@ -1482,11 +1549,9 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'default no results message';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<h3>Sorry no records matched your request</h3>
-<ul>
-<li>Try changing the date range</li>
-<li>and/or change the filtering options</li>
-</ul>';
+  $handler->display->display_options['empty']['area']['content'] = '<h3>Sorry. I couldn\'t find any records matching your search.</h3>
+
+<p class="kitten">Try changing the date range and/or change the filtering options.<br />Good luck! - Catman Jr.</p>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Relationship: Commerce Order: Invoice */
   $handler->display->display_options['relationships']['invoice_id']['id'] = 'invoice_id';
@@ -4349,7 +4414,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
   <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
-<li><a href="../admin/commerce/reports">Store reports</a></li>
+<li><a href="../admin/commerce/reports/catman">Catman reports</a></li>
 <li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
 <li><a href="../node/add/author">Add author</a></li>
 </ul>';
