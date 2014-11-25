@@ -809,14 +809,15 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_cost_per_copy']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Commerce Product: Quanity available */
+  /* Field: Commerce Product: Quantity available */
   $handler->display->display_options['fields']['commerce_stock']['id'] = 'commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['field'] = 'commerce_stock';
-  $handler->display->display_options['fields']['commerce_stock']['label'] = 'Quantity available';
+  $handler->display->display_options['fields']['commerce_stock']['label'] = 'Qty available';
   $handler->display->display_options['fields']['commerce_stock']['element_class'] = 'quantity-available';
   $handler->display->display_options['fields']['commerce_stock']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['commerce_stock']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['commerce_stock']['type'] = 'number_integer';
   $handler->display->display_options['fields']['commerce_stock']['settings'] = array(
     'thousand_separator' => ',',
     'prefix_suffix' => 0,
@@ -845,7 +846,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['expression']['precision'] = '2';
   $handler->display->display_options['fields']['expression']['prefix'] = '$';
   $handler->display->display_options['fields']['expression']['expression'] = 'f(x) = ([field_cost_per_copy_1] * [commerce_stock]) / 100;  f(2)';
-  /* Sort criterion: Commerce Product: Quanity available (commerce_stock) */
+  /* Sort criterion: Commerce Product: Quantity available (commerce_stock) */
   $handler->display->display_options['sorts']['commerce_stock_value']['id'] = 'commerce_stock_value';
   $handler->display->display_options['sorts']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['sorts']['commerce_stock_value']['field'] = 'commerce_stock_value';
@@ -877,7 +878,7 @@ function catman_custom_views_default_views() {
     9 => 0,
     8 => 0,
   );
-  /* Filter criterion: Commerce Product: Quanity available (commerce_stock) */
+  /* Filter criterion: Commerce Product: Quantity available (commerce_stock) */
   $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
@@ -940,7 +941,7 @@ function catman_custom_views_default_views() {
     9 => 0,
     8 => 0,
   );
-  /* Filter criterion: Commerce Product: Quanity available (commerce_stock) */
+  /* Filter criterion: Commerce Product: Quantity available (commerce_stock) */
   $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
@@ -991,7 +992,6 @@ function catman_custom_views_default_views() {
     8 => 0,
     6 => 0,
     5 => 0,
-    9 => 0,
     7 => 0,
     4 => 0,
     3 => 0,
@@ -1037,7 +1037,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Refresh report';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -1173,14 +1172,15 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_cost_per_copy']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Commerce Product: Quanity available */
+  /* Field: Commerce Product: Quantity available */
   $handler->display->display_options['fields']['commerce_stock']['id'] = 'commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['field'] = 'commerce_stock';
-  $handler->display->display_options['fields']['commerce_stock']['label'] = 'Quantity available';
+  $handler->display->display_options['fields']['commerce_stock']['label'] = 'Qty available';
   $handler->display->display_options['fields']['commerce_stock']['element_class'] = 'quantity-available';
   $handler->display->display_options['fields']['commerce_stock']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['commerce_stock']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['commerce_stock']['type'] = 'number_integer';
   $handler->display->display_options['fields']['commerce_stock']['settings'] = array(
     'thousand_separator' => ',',
     'prefix_suffix' => 0,
@@ -1215,7 +1215,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'product' => 'product',
   );
-  /* Filter criterion: Commerce Product: Quanity available (commerce_stock) */
+  /* Filter criterion: Commerce Product: Quantity available (commerce_stock) */
   $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
@@ -1242,9 +1242,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['table'] = 'field_data_field_mode_of_delivery';
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['field'] = 'field_mode_of_delivery_value';
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['relationship'] = 'field_publication_product';
-  $handler->display->display_options['filters']['field_mode_of_delivery_value']['value'] = array(
-    4 => '4',
-  );
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator_id'] = 'field_mode_of_delivery_value_op';
   $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['label'] = 'Mode of delivery';
@@ -1751,6 +1748,8 @@ function catman_custom_views_default_views() {
   <li><a href="/admin/commerce/reports/catman/unpaid-invoices">Unpaid Invoices Report</a></li>
   <li><a href="/admin/commerce/reports/catman/reconciliation-all-payments">Account Receivables Reconciliation Report - totals by date</a></li>
   <li><a href="/admin/commerce/reports/catman/reconciliation">Account Receivables Reconciliation Report - totals by payment method</a></li>
+ <li><a href="/admin/commerce/reports/catman/review">Periodic Review Report - by date published or revised</a></li>
+ <li><a href="/admin/commerce/reports/catman/review-date">Periodic Review Report - by date reviewed</a></li>
 </ul>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
@@ -2062,7 +2061,7 @@ function catman_custom_views_default_views() {
   );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/reconciliation';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Reconciliation - by payment method';
+  $handler->display->display_options['menu']['title'] = 'Reconciliation - by payment';
   $handler->display->display_options['menu']['description'] = 'Custom Catman reports';
   $handler->display->display_options['menu']['weight'] = '10';
   $handler->display->display_options['menu']['context'] = 0;
@@ -4403,6 +4402,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
   <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
 <li><a href="../admin/commerce/reports/catman">Catman reports</a></li>
+<li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
+<li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
 <li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
 <li><a href="../node/add/author">Add author</a></li>
 </ul>';
@@ -4419,6 +4420,32 @@ function catman_custom_views_default_views() {
 
   /* Display: Block - store manager */
   $handler = $view->new_display('block', 'Block - store manager', 'block_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: placeholder to make view validate */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['ui_name'] = 'placeholder to make view validate';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: List of hardcoded links */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
+  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+<li><a href="../admin/commerce/reports/catman">Catman reports</a></li>
+<li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
+<li><a href="../node/add/author">Add author</a></li>
+<li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
+<li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
+</ul>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
   $export['help_links'] = $view;
 
   $view = new view();
@@ -4466,6 +4493,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
   <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+<li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
+<li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
 <li><a href="../node/add/osu-catalog-publication">Add project</a></li>
 <li><a href="../node/add/author">Add author</a></li>
 </ul>';
@@ -4482,6 +4511,31 @@ function catman_custom_views_default_views() {
 
   /* Display: Block - project manager */
   $handler = $view->new_display('block', 'Block - project manager', 'block_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: placeholder to make view validate */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['ui_name'] = 'placeholder to make view validate';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: List of hardcoded links */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
+  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+<li><a href="../node/add/osu-catalog-publication">Add project</a></li>
+<li><a href="../node/add/author">Add author</a></li>
+<li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
+<li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
+</ul>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
   $export['help_links_pm'] = $view;
 
   return $export;
