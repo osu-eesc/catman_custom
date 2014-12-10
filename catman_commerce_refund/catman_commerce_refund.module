@@ -1,0 +1,249 @@
+<?php
+/**
+ * @catman_commerce_refund.module
+ * Creates refund line items
+ */
+
+/**
+ * Implements hook_commerce_line_item_type_info().
+ *
+ * - example_line_item_1 is simply a clone of the 'product' line item type. It's
+ *   a simple way to get a differentiated line item type.
+ * - example_line_item_2 is completely implemented and is not a product line
+ *   item type but rather a "surcharge", and the hook_commerce_order_presave()
+ *   is provided to make sure that there is one for every order.
+ *
+ * @see hook_commerce_line_item_type_info().
+ * @see http://www.drupalcommerce.org/specification/info-hooks/checkout
+ *
+ */
+function catman_commerce_refund_commerce_line_item_type_info() {
+
+  $line_item_types['product_refund_line_item'] = array(
+    'name' => t('Product refund'),
+    'description' => t('Catman Commerce Product Refund line item'),
+    'product' => TRUE,
+
+    // Here you can change the text in the submit button in the order admin form.
+    'add_form_submit_value' => t('Add product refund'),
+    'base' => 'commerce_product_line_item',
+    'callbacks' => array(
+      'title' => 'product_refund_line_item_title',
+    ),
+
+  );
+
+  $line_item_types['shipping_refund_line_item'] = array(
+    'name' => t('Shipping refund'),
+    'description' => t('Catman Commerce Shipping Refund line item'),
+    'product' => FALSE,
+
+    // Here you can change the text in the submit button in the order admin
+    // line item add area.
+    'add_form_submit_value' => t('Add shipping refund'),
+
+    // We could use 'base' to configure the forms we need but instead we'll
+    // name the callbacks explicitly.
+
+    'base' => 'commerce_product_line_item',
+
+    'callbacks' => array(
+      'configuration' => 'order_refund_line_item_configuration',
+      'title' => 'shipping_refund_line_item_title',
+      'add_form' => 'order_refund_line_item_add_form',
+      'add_form_submit' => 'order_refund_line_item_add_form_submit',
+    ),
+
+  );
+
+
+  $line_item_types['order_refund_line_item'] = array(
+    'name' => t('Order refund'),
+    'description' => t('Catman Commerce Order Refund line item'),
+    'product' => FALSE,
+
+    // Here you can change the text in the submit button in the order admin
+    // line item add area.
+    'add_form_submit_value' => t('Add order refund'),
+
+    // We could use 'base' to configure the forms we need but instead we'll
+    // name the callbacks explicitly.
+
+    'base' => 'commerce_product_line_item',
+
+    'callbacks' => array(
+      'configuration' => 'order_refund_line_item_configuration',
+      'title' => 'order_refund_line_item_title',
+      'add_form' => 'order_refund_line_item_add_form',
+      'add_form_submit' => 'order_refund_line_item_add_form_submit',
+    ),
+  );
+
+  return $line_item_types;
+
+}
+
+
+/**
+ * Returns a title for this line item.
+ */
+function product_refund_line_item_title($line_item) {
+  return(t('Product refund'));
+}
+
+/**
+ * Returns a title for this line item.
+ */
+function shipping_refund_line_item_title($line_item) {
+  return(t('Shipping refund'));
+}
+
+
+
+// function catman_commerce_refund_commerce_price_component_type_info() {
+//   return array(
+//     'catman_commerce_refund_component' => array(
+//       'title' => t('Order refund'),
+//       'display_title' => t('Catman Commerce price component'),
+//       'weight' => 100,
+//     ),
+//   );
+// }
+
+
+/**
+ * Configure the line item with additional fields or whatever.
+ *
+ * This function is called by the line item module when it is enabled or this
+ * module is enabled. It invokes this function using the configuration_callback
+ * as specified above. Other modules defining product line item types should
+ * use this function to ensure their types have the required fields.
+ *
+ * @param $line_item_type
+ *   The info array of the line item type being configured.
+ *
+ * @see commerce_product_line_item_configuration()
+ */
+function order_refund_line_item_configuration($line_item_type) {
+  $type = $line_item_type['type'];
+
+  // Here we could add fields or other configuration.
+
+}
+
+// /**
+//  * Returns a title for this line item.
+//  */
+function order_refund_line_item_title($line_item) {
+  return(t('Order refund'));
+}
+
+// /**
+//  * Returns the elements necessary to add a product line item through a line item
+//  * manager widget (on the order form).
+//  */
+function order_refund_line_item_add_form($element, &$form_state) {
+  $form = array();
+
+  return $form;
+}
+
+// /**
+//  * Adds the selected product information to a line item added via a line item
+//  *   manager widget (on the admin order page).
+//  *
+//  * @param $line_item
+//  *   The newly created line item object.
+//  * @param $element
+//  *   The array representing the widget form element.
+//  * @param $form_state
+//  *   The present state of the form upon the latest submission.
+//  * @param $form
+//  *   The actual form array.
+//  *
+//  * @return
+//  *   NULL if all is well or an error message if something goes wrong.
+//  */
+function order_refund_line_item_add_form_submit(&$line_item, $element, &$form_state, $form) {
+  $line_item->line_item_label = t('Refund');
+
+  // Wrap the line item and product to easily set field information.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+  // Provide a default price.
+  $amount = variable_get('order_refund_line_item_amount', 0);
+  $currency_code = variable_get('line_item_example_line_item_2_currency', 'USD');
+
+  $line_item->commerce_unit_price = array('und' => array(
+    '0' => array('amount' => $amount, 'currency_code' => $currency_code)
+  ));
+
+  if (!is_null($line_item_wrapper->commerce_unit_price->value())) {
+    // Add the base price to the components array.
+    if (!commerce_price_component_load($line_item_wrapper->commerce_unit_price->value(), 'base_price')) {
+      $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+        $line_item_wrapper->commerce_unit_price->value(),
+        'base_price',
+        $line_item_wrapper->commerce_unit_price->value(),
+        TRUE
+      );
+    }
+  }
+
+}
+
+
+// /**
+//  * Utility function which creates a new example_2 line item populated with the
+//  * a price of $5.00, etc..
+//  *
+//  * @param $order_id
+//  *   The ID of the order the line item belongs to (if available).
+//  *
+//  * @return
+//  *   The fully loaded line item..
+//  */
+function order_refund_line_item_new($order_id = 0) {
+  $type = 'order_refund_line_item';
+
+  // Create the new line item.
+  $line_item = entity_create('commerce_line_item', array(
+    'type' => $type,
+    'order_id' => $order_id,
+  ));
+
+//   // For this example, we'll use a price of USD $5.00 for the "surcharge".
+  $amount = variable_get('order_refund_line_item_amount', 0);
+  $currency_code = variable_get('order_refund_line_item_currency', 'USD');
+
+  $line_item->commerce_unit_price = array('und' => array(
+    '0' => array('amount' => $amount, 'currency_code' => $currency_code)
+  ));
+
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+  if (!is_null($line_item_wrapper->commerce_unit_price->value())) {
+    // Add the base price to the components array.
+    if (!commerce_price_component_load($line_item_wrapper->commerce_unit_price->value(), 'base_price')) {
+      $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+        $line_item_wrapper->commerce_unit_price->value(),
+        'base_price',
+        $line_item_wrapper->commerce_unit_price->value(),
+        TRUE
+      );
+    }
+  }
+  // Return the line item.
+  return $line_item;
+}
+
+
+function catman_commerce_refund_commerce_price_component_type_info() {
+  return array(
+    'refund' => array(
+      'title' => t('Refund'),
+      'weight' => 100,
+    ),
+  );
+}
+
