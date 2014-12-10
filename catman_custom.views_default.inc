@@ -948,20 +948,19 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
   $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
-  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quantity available';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator'] = 'commerce_stock_value_op';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['identifier'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
-    7 => 0,
-    4 => 0,
+    8 => 0,
     6 => 0,
     5 => 0,
-    9 => 0,
-    8 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
   );
   $handler->display->display_options['filters']['commerce_stock_value']['group_info']['label'] = 'Quanity available (commerce_stock)';
   $handler->display->display_options['filters']['commerce_stock_value']['group_info']['identifier'] = 'commerce_stock_value';
