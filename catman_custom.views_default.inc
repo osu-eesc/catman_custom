@@ -36,16 +36,30 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
+    'nid' => 'nid',
     'field_full_series_number' => 'field_full_series_number',
     'title' => 'title',
     'timestamp' => 'title',
     'type' => 'type',
     'name' => 'name',
-    'timestamp_1' => 'timestamp_1',
+    'changed' => 'changed',
     'edit_node' => 'edit_node',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nid' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_full_series_number' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
@@ -79,8 +93,8 @@ function catman_custom_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'timestamp_1' => array(
-      'sortable' => 1,
+    'changed' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1538,6 +1552,59 @@ function catman_custom_views_default_views() {
 
   /* Display: Periodic Review - date reviewed or revised */
   $handler = $view->new_display('page', 'Periodic Review - date reviewed or revised', 'page');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Project title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_publication_status']['id'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['field'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['element_default_classes'] = FALSE;
+  /* Field: Content: Date published or revised */
+  $handler->display->display_options['fields']['field_publication_date']['id'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['field'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reviewed */
+  $handler->display->display_options['fields']['field_date_reviewed']['id'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['table'] = 'field_data_field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['field'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Review notes */
+  $handler->display->display_options['fields']['field_review_notes']['id'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['table'] = 'field_data_field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Periodic Review - published or reviewed';
@@ -1605,6 +1672,59 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Project title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_publication_status']['id'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['field'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['element_default_classes'] = FALSE;
+  /* Field: Content: Date published or revised */
+  $handler->display->display_options['fields']['field_publication_date']['id'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['field'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reviewed */
+  $handler->display->display_options['fields']['field_date_reviewed']['id'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['table'] = 'field_data_field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['field'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Review notes */
+  $handler->display->display_options['fields']['field_review_notes']['id'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['table'] = 'field_data_field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Reviewed (field_date_reviewed) */
   $handler->display->display_options['sorts']['field_date_reviewed_value']['id'] = 'field_date_reviewed_value';
@@ -1670,6 +1790,59 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Project title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_publication_status']['id'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['field'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['element_default_classes'] = FALSE;
+  /* Field: Content: Date published or revised */
+  $handler->display->display_options['fields']['field_publication_date']['id'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['field'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reviewed */
+  $handler->display->display_options['fields']['field_date_reviewed']['id'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['table'] = 'field_data_field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['field'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Review notes */
+  $handler->display->display_options['fields']['field_review_notes']['id'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['table'] = 'field_data_field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review/csv';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
@@ -1691,6 +1864,59 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Project title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_publication_status']['id'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['field'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['element_default_classes'] = FALSE;
+  /* Field: Content: Date published or revised */
+  $handler->display->display_options['fields']['field_publication_date']['id'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['field'] = 'field_publication_date';
+  $handler->display->display_options['fields']['field_publication_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_date']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reviewed */
+  $handler->display->display_options['fields']['field_date_reviewed']['id'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['table'] = 'field_data_field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['field'] = 'field_date_reviewed';
+  $handler->display->display_options['fields']['field_date_reviewed']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_date_reviewed']['settings'] = array(
+    'format_type' => 'full_month_year',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Review notes */
+  $handler->display->display_options['fields']['field_review_notes']['id'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['table'] = 'field_data_field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
+  $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
