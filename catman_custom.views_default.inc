@@ -1233,7 +1233,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
-  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '50';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '20';
   $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
