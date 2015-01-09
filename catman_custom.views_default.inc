@@ -1525,11 +1525,34 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'osu_catalog_publication' => 'osu_catalog_publication',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   /* Filter criterion: Content: Date published or revised (field_publication_date) */
   $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
   $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
   $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
   $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
   $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
@@ -1740,19 +1763,18 @@ function catman_custom_views_default_views() {
     'osu_catalog_publication' => 'osu_catalog_publication',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value']['id'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['operator_id'] = 'field_date_reviewed_value_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['label'] = 'Reviewed between';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['operator'] = 'field_date_reviewed_value_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['identifier'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['required'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['remember_roles'] = array(
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     8 => 0,
@@ -1762,14 +1784,31 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
-  $handler->display->display_options['filters']['field_date_reviewed_value']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['default_date'] = 'now -25 years';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['default_to_date'] = 'now ';
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['id'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['operator'] = 'not empty';
+  /* Filter criterion: Content: Date published or revised (field_publication_date) */
+  $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['identifier'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_publication_date_value']['granularity'] = 'month';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_date'] = 'now -25 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review-date';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Periodic Review - reviewed';
@@ -1917,46 +1956,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
   $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'osu_catalog_publication' => 'osu_catalog_publication',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['id'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['group'] = 1;
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['operator_id'] = 'field_date_reviewed_value_1_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['label'] = 'Reviewed between';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['operator'] = 'field_date_reviewed_value_1_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['identifier'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    8 => 0,
-    6 => 0,
-    5 => 0,
-    7 => 0,
-    4 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['default_date'] = 'now -25 years';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['default_to_date'] = 'now';
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value']['id'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['group'] = 1;
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review-date/csv';
   $handler->display->display_options['displays'] = array(
     'page_2' => 'page_2',
