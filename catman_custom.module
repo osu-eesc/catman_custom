@@ -36,7 +36,7 @@ function catman_custom_help($path, $arg) {
     break;
 
     case 'admin/commerce/reports/catman/review':
-      return '<h3>' . t('Periodic Review - by date published or reviewed') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
+      return '<h3>' . t('Periodic Review - by date published or revised') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
 
     break;
 
