@@ -354,6 +354,11 @@ div.workbench-info-block {
   font-size: 0.875em !important;
 }
 
+/* Limit the list of states to just main 50 and DC */
+select option:nth-child(n+53) {
+  display: none;
+}
+
 
 
 

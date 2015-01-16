@@ -17,6 +17,8 @@
  * @see http://www.drupalcommerce.org/specification/info-hooks/checkout
  *
  */
+
+
 function catman_commerce_refund_commerce_line_item_type_info() {
 
   $line_item_types['product_refund_line_item'] = array(
@@ -81,6 +83,8 @@ function catman_commerce_refund_commerce_line_item_type_info() {
 
   return $line_item_types;
 
+
+
 }
 
 
@@ -144,7 +148,7 @@ function order_refund_line_item_title($line_item) {
 //  */
 function order_refund_line_item_add_form($element, &$form_state) {
   $form = array();
-
+  dpm($form,'$form');
   return $form;
 }
 
@@ -238,12 +242,12 @@ function order_refund_line_item_new($order_id = 0) {
 }
 
 
-function catman_commerce_refund_commerce_price_component_type_info() {
-  return array(
-    'refund' => array(
-      'title' => t('Refund'),
-      'weight' => 100,
-    ),
-  );
-}
+// function catman_commerce_refund_commerce_price_component_type_info() {
+//   return array(
+//     'refund' => array(
+//       'title' => t('Refund'),
+//       'weight' => 200,
+//     ),
+//   );
+// }
 

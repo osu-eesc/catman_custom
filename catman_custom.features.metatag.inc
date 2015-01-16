@@ -69,7 +69,7 @@ function catman_custom_metatag_export_default() {
         'value' => 'The OSU Extension Catalog is the source for current, peer-reviewed, research-based learning materials published by OSU Extension. It is an active and growing resource, with learning materials in a variety of media for use in a variety of outreach and engagement activities and programs.',
       ),
       'rights' => array(
-        'value' => '&copy; 2014 Oregon State University',
+        'value' => '&copy; 2015 Oregon State University',
       ),
       'image_src' => array(
         'value' => 'http://oregonstate.edu/img/core/osu-tag.png',
