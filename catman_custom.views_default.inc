@@ -916,22 +916,11 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
-  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
-  $handler->display->display_options['filters']['commerce_stock_value']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quantity available (commerce_stock)';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator'] = 'commerce_stock_value_op';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['identifier'] = 'commerce_stock_value';
-  $handler->display->display_options['filters']['commerce_stock_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    7 => 0,
-    4 => 0,
-    6 => 0,
-    5 => 0,
-    9 => 0,
-    8 => 0,
-  );
   $handler->display->display_options['filters']['commerce_stock_value']['group_info']['label'] = 'Quanity available (commerce_stock)';
   $handler->display->display_options['filters']['commerce_stock_value']['group_info']['identifier'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['group_info']['remember'] = FALSE;
@@ -1049,12 +1038,90 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['filename'] = '%display-%timestamp-full.csv';
-  $handler->display->display_options['style_options']['parent_sort'] = 0;
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
   $handler->display->display_options['style_options']['quote'] = 1;
   $handler->display->display_options['style_options']['trim'] = 1;
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Product: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'product' => 'product',
+  );
+  /* Filter criterion: Commerce Product: SKU */
+  $handler->display->display_options['filters']['sku']['id'] = 'sku';
+  $handler->display->display_options['filters']['sku']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['sku']['field'] = 'sku';
+  $handler->display->display_options['filters']['sku']['operator'] = 'contains';
+  $handler->display->display_options['filters']['sku']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['sku']['expose']['operator_id'] = 'sku_op';
+  $handler->display->display_options['filters']['sku']['expose']['label'] = 'Series number contains';
+  $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
+  $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
+  $handler->display->display_options['filters']['sku']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    7 => 0,
+    4 => 0,
+    6 => 0,
+    5 => 0,
+    9 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Commerce Product: Quantity available (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quantity available';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator'] = 'commerce_stock_value_op';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['identifier'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['label'] = 'Quanity available (commerce_stock)';
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['identifier'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['commerce_stock_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  /* Filter criterion: Content: Mode of delivery (field_mode_of_delivery) */
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['id'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['table'] = 'field_data_field_mode_of_delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['field'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['relationship'] = 'field_publication_product';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator_id'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['label'] = 'Mode of delivery';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['operator'] = 'field_mode_of_delivery_value_op';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['identifier'] = 'field_mode_of_delivery_value';
+  $handler->display->display_options['filters']['field_mode_of_delivery_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/inventory/csv';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
@@ -1230,14 +1297,13 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_cost_per_copy_1']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['relationship'] = 'field_publication_product';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'edit';
+  /* Field: Commerce Product: Edit link */
+  $handler->display->display_options['fields']['edit_product']['id'] = 'edit_product';
+  $handler->display->display_options['fields']['edit_product']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['edit_product']['field'] = 'edit_product';
+  $handler->display->display_options['fields']['edit_product']['label'] = '';
+  $handler->display->display_options['fields']['edit_product']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_product']['text'] = 'edit';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Product: Type */
@@ -1460,8 +1526,12 @@ function catman_custom_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Catman periodic review';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access commerce reports';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    4 => '4',
+    7 => '7',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1544,11 +1614,34 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'osu_catalog_publication' => 'osu_catalog_publication',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   /* Filter criterion: Content: Date published or revised (field_publication_date) */
   $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
   $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
   $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
   $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
   $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
@@ -1569,8 +1662,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
   $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
 
-  /* Display: Periodic Review - date reviewed or revised */
-  $handler = $view->new_display('page', 'Periodic Review - date reviewed or revised', 'page');
+  /* Display: Periodic Review - date published or revised */
+  $handler = $view->new_display('page', 'Periodic Review - date published or revised', 'page');
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Full series number */
   $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
@@ -1624,10 +1717,93 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
   $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'osu_catalog_publication' => 'osu_catalog_publication',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Date published or revised (field_publication_date) */
+  $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['identifier'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_publication_date_value']['granularity'] = 'month';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_date'] = 'now -25 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
+  /* Filter criterion: Content: Status (field_publication_status) */
+  $handler->display->display_options['filters']['field_publication_status_value']['id'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['filters']['field_publication_status_value']['field'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['value'] = array(
+    1 => '1',
+    3 => '3',
+    4 => '4',
+  );
+  $handler->display->display_options['filters']['field_publication_status_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator_id'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['identifier'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Periodic Review - published or reviewed';
+  $handler->display->display_options['menu']['title'] = 'Periodic Review - published or revised';
   $handler->display->display_options['menu']['weight'] = '20';
+  $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
@@ -1759,19 +1935,18 @@ function catman_custom_views_default_views() {
     'osu_catalog_publication' => 'osu_catalog_publication',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value']['id'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['operator_id'] = 'field_date_reviewed_value_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['label'] = 'Reviewed between';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['operator'] = 'field_date_reviewed_value_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['identifier'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['required'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value']['expose']['remember_roles'] = array(
+  /* Filter criterion: Content: Date published or revised (field_publication_date) */
+  $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['identifier'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     8 => 0,
@@ -1781,18 +1956,61 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
-  $handler->display->display_options['filters']['field_date_reviewed_value']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['default_date'] = 'now -25 years';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['default_to_date'] = 'now ';
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['id'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_publication_date_value']['granularity'] = 'month';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_date'] = 'now -25 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
+  /* Filter criterion: Content: Status (field_publication_status) */
+  $handler->display->display_options['filters']['field_publication_status_value']['id'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['filters']['field_publication_status_value']['field'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['value'] = array(
+    5 => '5',
+    6 => '6',
+  );
+  $handler->display->display_options['filters']['field_publication_status_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator_id'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['identifier'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review-date';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Periodic Review - reviewed';
   $handler->display->display_options['menu']['weight'] = '21';
+  $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
@@ -1862,6 +2080,81 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['field_review_notes']['field'] = 'field_review_notes';
   $handler->display->display_options['fields']['field_review_notes']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_review_notes']['element_default_classes'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'osu_catalog_publication' => 'osu_catalog_publication',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Date published or revised (field_publication_date) */
+  $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['identifier'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_publication_date_value']['granularity'] = 'month';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_date'] = 'now -25 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
+  /* Filter criterion: Content: Status (field_publication_status) */
+  $handler->display->display_options['filters']['field_publication_status_value']['id'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['filters']['field_publication_status_value']['field'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator_id'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['identifier'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    4 => 0,
+    7 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review/csv';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
@@ -1946,18 +2239,18 @@ function catman_custom_views_default_views() {
     'osu_catalog_publication' => 'osu_catalog_publication',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['id'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['group'] = 1;
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['operator_id'] = 'field_date_reviewed_value_1_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['label'] = 'Reviewed between';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['operator'] = 'field_date_reviewed_value_1_op';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['identifier'] = 'field_date_reviewed_value_1';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['expose']['remember_roles'] = array(
+  /* Filter criterion: Content: Full series number (field_full_series_number) */
+  $handler->display->display_options['filters']['field_full_series_number_value']['id'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['filters']['field_full_series_number_value']['field'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_full_series_number_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_series_number_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator_id'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['label'] = 'Series #';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['operator'] = 'field_full_series_number_value_op';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['identifier'] = 'field_full_series_number_value';
+  $handler->display->display_options['filters']['field_full_series_number_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     8 => 0,
@@ -1967,15 +2260,50 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['default_date'] = 'now -25 years';
-  $handler->display->display_options['filters']['field_date_reviewed_value_1']['default_to_date'] = 'now';
-  /* Filter criterion: Content: Reviewed (field_date_reviewed) */
-  $handler->display->display_options['filters']['field_date_reviewed_value']['id'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['table'] = 'field_data_field_date_reviewed';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['field'] = 'field_date_reviewed_value';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_date_reviewed_value']['group'] = 1;
+  /* Filter criterion: Content: Date published or revised (field_publication_date) */
+  $handler->display->display_options['filters']['field_publication_date_value']['id'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['table'] = 'field_data_field_publication_date';
+  $handler->display->display_options['filters']['field_publication_date_value']['field'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_publication_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_publication_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator_id'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['label'] = 'Date published or revised between';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['operator'] = 'field_publication_date_value_op';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['identifier'] = 'field_publication_date_value';
+  $handler->display->display_options['filters']['field_publication_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    7 => 0,
+    4 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_publication_date_value']['granularity'] = 'month';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_date'] = 'now -25 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['default_to_date'] = 'now -4 years';
+  $handler->display->display_options['filters']['field_publication_date_value']['year_range'] = '-4:+3';
+  /* Filter criterion: Content: Status (field_publication_status) */
+  $handler->display->display_options['filters']['field_publication_status_value']['id'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['filters']['field_publication_status_value']['field'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator_id'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['identifier'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    4 => 0,
+    7 => 0,
+    3 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/commerce/reports/catman/review-date/csv';
   $handler->display->display_options['displays'] = array(
     'page_2' => 'page_2',
@@ -2880,7 +3208,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_options']['attach_text'] = 'reconciliation-by-payment.csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['filename'] = '%display-%timestamp-full.csv';
-  $handler->display->display_options['style_options']['parent_sort'] = 0;
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
   $handler->display->display_options['style_options']['quote'] = 1;
   $handler->display->display_options['style_options']['trim'] = 1;
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
@@ -3369,7 +3697,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_options']['attach_text'] = 'reconciliation-by-payment.csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['filename'] = '%display-%timestamp-full.csv';
-  $handler->display->display_options['style_options']['parent_sort'] = 0;
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
   $handler->display->display_options['style_options']['quote'] = 1;
   $handler->display->display_options['style_options']['trim'] = 1;
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
@@ -3388,12 +3716,6 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['link_to_order'] = 'admin';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'commerce_invoice';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['relationship'] = 'invoice_id';
-  $handler->display->display_options['fields']['created']['label'] = 'Invoice date';
   /* Field: Commerce Payment Transaction: Changed date */
   $handler->display->display_options['fields']['changed_1']['id'] = 'changed_1';
   $handler->display->display_options['fields']['changed_1']['table'] = 'commerce_payment_transaction';
@@ -3961,7 +4283,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['style_options']['attach_text'] = 'unpaid-invoices.csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['filename'] = '%display-%timestamp-full.csv';
-  $handler->display->display_options['style_options']['parent_sort'] = 0;
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
   $handler->display->display_options['style_options']['quote'] = 1;
   $handler->display->display_options['style_options']['trim'] = 1;
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
