@@ -4,11 +4,9 @@
 /**
  * Implements hook_install
  */
-// function catman_custom_install(){
-//   //Create default image for cover.
-//   catman_custom_cover_default_image(drupal_get_path('module' , 'catman_custom') . '/images/cover.jpg');
-//   catman_custom_hansel_install();
-// }
+function catman_custom_install(){
+  variable_set('install_profile', 'ext_catalog');
+}
 
 
 /**
