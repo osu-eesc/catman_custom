@@ -126,7 +126,6 @@ function catman_custom_search_page($build) {
 /**
  * Implements hook_form_submit().
  */
-
 function osu_catalog_publication_node_form_submit($form, &$form_state) {
     //dpm($form, 'form array');
 

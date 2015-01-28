@@ -1,6 +1,5 @@
 /* Commerce kickstart styles */
 
-
 /* invoice styles */
 h3.invoice-header {
 
@@ -355,7 +354,7 @@ div.workbench-info-block {
 }
 
 /* Limit the list of states to just main 50 and DC */
-select option:nth-child(n+53) {
+select.state option:nth-child(n+53) {
   display: none;
 }
 
