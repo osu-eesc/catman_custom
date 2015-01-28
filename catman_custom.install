@@ -1,0 +1,20 @@
+<?php
+
+
+/**
+ * Implements hook_install
+ */
+// function catman_custom_install(){
+//   //Create default image for cover.
+//   catman_custom_cover_default_image(drupal_get_path('module' , 'catman_custom') . '/images/cover.jpg');
+//   catman_custom_hansel_install();
+// }
+
+
+/**
+ * Change max_length of Name field
+ */
+function catman_custom_update_7001() {
+  variable_set('install_profile', 'ext_catalog');
+  drupal_set_message(t('Install profile set to ext_catalog.'));
+}
