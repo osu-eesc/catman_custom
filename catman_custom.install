@@ -14,5 +14,5 @@ function catman_custom_install(){
  */
 function catman_custom_update_7001() {
   variable_set('install_profile', 'ext_catalog');
-  drupal_set_message(t('Install profile set to ext_catalog.'));
+  return t('Install profile set to ext_catalog.');
 }
