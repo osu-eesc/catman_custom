@@ -173,7 +173,7 @@ function catman_custom_views_default_views() {
       'label' => '',
     ),
     'action::views_bulk_operations_modify_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -374,9 +374,226 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
+  /* Filter criterion: Content: Status (field_publication_status) */
+  $handler->display->display_options['filters']['field_publication_status_value']['id'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['filters']['field_publication_status_value']['field'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator_id'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['operator'] = 'field_publication_status_value_op';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['identifier'] = 'field_publication_status_value';
+  $handler->display->display_options['filters']['field_publication_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    8 => 0,
+    6 => 0,
+    5 => 0,
+    4 => 0,
+    7 => 0,
+    3 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Bulk operations: Content */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::node_assign_owner_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_sticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_unsticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          'osu_catalog_publication::field_series_prefix' => 'osu_catalog_publication::field_series_prefix',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::node_promote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_publish_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpromote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_save_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::workbench_moderation_set_state_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_by_keyword_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::auto_entitylabel_entity_update_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::pathauto_node_update_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = 'nid';
+  $handler->display->display_options['fields']['nid']['link_to_node'] = TRUE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['field_api_classes'] = TRUE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Has new content */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'history';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'New?';
+  /* Field: Content type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['ui_name'] = 'Content type';
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['name']['label'] = 'Created by';
+  /* Field: Content: Updated date */
+  $handler->display->display_options['fields']['changed']['id'] = 'changed';
+  $handler->display->display_options['fields']['changed']['table'] = 'node';
+  $handler->display->display_options['fields']['changed']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed']['label'] = 'Last updated';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'today time ago';
+  $handler->display->display_options['fields']['changed']['second_date_format'] = 'short';
+  $handler->display->display_options['fields']['changed']['format_date_sql'] = 0;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Global: Combine fields filter */
@@ -433,25 +650,6 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Series prefix (field_series_prefix) */
-  $handler->display->display_options['filters']['field_series_prefix_value']['id'] = 'field_series_prefix_value';
-  $handler->display->display_options['filters']['field_series_prefix_value']['table'] = 'field_data_field_series_prefix';
-  $handler->display->display_options['filters']['field_series_prefix_value']['field'] = 'field_series_prefix_value';
-  $handler->display->display_options['filters']['field_series_prefix_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_series_prefix_value']['expose']['operator_id'] = 'field_series_prefix_value_op';
-  $handler->display->display_options['filters']['field_series_prefix_value']['expose']['label'] = 'Series prefix (field_series_prefix)';
-  $handler->display->display_options['filters']['field_series_prefix_value']['expose']['operator'] = 'field_series_prefix_value_op';
-  $handler->display->display_options['filters']['field_series_prefix_value']['expose']['identifier'] = 'field_series_prefix_value';
-  $handler->display->display_options['filters']['field_series_prefix_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    8 => 0,
-    6 => 0,
-    5 => 0,
-    7 => 0,
-    4 => 0,
-    3 => 0,
-  );
   $handler->display->display_options['path'] = 'admin/content';
 
   /* Display: Block */
@@ -469,6 +667,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['use_more_text'] = 'view all';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -498,6 +697,15 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['ui_name'] = 'Content type';
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_publication_status']['id'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['table'] = 'field_data_field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['field'] = 'field_publication_status';
+  $handler->display->display_options['fields']['field_publication_status']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_publication_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_publication_status']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_publication_status']['field_api_classes'] = TRUE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -516,7 +724,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Actions';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'edit';
 
   /* Display: Workbench content */
@@ -565,7 +774,8 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Actions';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'edit';
   $handler->display->display_options['path'] = 'admin/workbench/content/all';
   $handler->display->display_options['menu']['type'] = 'tab';
@@ -782,7 +992,7 @@ function catman_custom_views_default_views() {
 
 <p class="kitten">Try changing your search criteria.<br />Good luck! - Catman Jr.</p>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
-  /* Relationship: Commerce Product: Referencing Node */
+  /* Relationship: Commerce Product: Referencing Content */
   $handler->display->display_options['relationships']['field_publication_product']['id'] = 'field_publication_product';
   $handler->display->display_options['relationships']['field_publication_product']['table'] = 'commerce_product';
   $handler->display->display_options['relationships']['field_publication_product']['field'] = 'field_publication_product';
@@ -929,6 +1139,10 @@ function catman_custom_views_default_views() {
     2 => array(),
     3 => array(),
   );
+  /* Filter criterion: Commerce Product: Status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
 
   /* Display: Inventory Value Report */
   $handler = $view->new_display('page', 'Inventory Value Report', 'page');
@@ -1034,7 +1248,8 @@ function catman_custom_views_default_views() {
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'inventory_export_csv');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['filename'] = '%display-%timestamp-full.csv';
@@ -1318,7 +1533,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
   $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '<=';
-  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '20';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '5';
   $handler->display->display_options['filters']['commerce_stock_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['operator_id'] = 'commerce_stock_value_op';
   $handler->display->display_options['filters']['commerce_stock_value']['expose']['label'] = 'Quanity available';
@@ -1331,8 +1546,8 @@ function catman_custom_views_default_views() {
     8 => 0,
     6 => 0,
     5 => 0,
-    7 => 0,
     4 => 0,
+    7 => 0,
     3 => 0,
   );
   /* Filter criterion: Content: Mode of delivery (field_mode_of_delivery) */
@@ -1355,6 +1570,11 @@ function catman_custom_views_default_views() {
     4 => 0,
     3 => 0,
   );
+  /* Filter criterion: Commerce Product: Status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $export['catman_inventory'] = $view;
 
   $view = new view();
@@ -1375,7 +1595,7 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
@@ -1435,6 +1655,11 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['balance']['element_wrapper_class'] = 'balance-due';
   $handler->display->display_options['fields']['balance']['empty'] = 'Paid in full';
   $handler->display->display_options['fields']['balance']['empty_zero'] = TRUE;
+  /* Sort criterion: Commerce Payment Transaction: Changed date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'commerce_payment_transaction';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   /* Contextual filter: Commerce Payment Transaction: Order ID */
   $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
   $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_payment_transaction';
@@ -4863,6 +5088,53 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['header']['area']['content'] = 'Five of the most recently updated pieces of content.';
   $handler->display->display_options['header']['area']['format'] = 'plain_text';
   $handler->display->display_options['defaults']['footer'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'vid';
+  $handler->display->display_options['fields']['nid']['group_type'] = 'count';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Full series number */
+  $handler->display->display_options['fields']['field_full_series_number']['id'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['table'] = 'field_data_field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['field'] = 'field_full_series_number';
+  $handler->display->display_options['fields']['field_full_series_number']['relationship'] = 'vid';
+  $handler->display->display_options['fields']['field_full_series_number']['label'] = 'Series #';
+  $handler->display->display_options['fields']['field_full_series_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_full_series_number']['field_api_classes'] = TRUE;
+  /* Field: Content revision: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node_revision';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'vid';
+  $handler->display->display_options['fields']['title']['link_to_node'] = TRUE;
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['relationship'] = 'vid';
+  $handler->display->display_options['fields']['type']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['type']['alter']['ellipsis'] = FALSE;
+  /* Field: Content revision: Updated date */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'node_revision';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'Last updated';
+  $handler->display->display_options['fields']['timestamp']['date_format'] = 'time ago';
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['relationship'] = 'vid';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: User: Current */
@@ -4964,8 +5236,8 @@ function catman_custom_views_default_views() {
   );
   $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'full_html';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
@@ -5135,6 +5407,12 @@ function catman_custom_views_default_views() {
       'label' => '',
     ),
   );
+  /* Field: Global: View result counter */
+  $handler->display->display_options['fields']['counter']['id'] = 'counter';
+  $handler->display->display_options['fields']['counter']['table'] = 'views';
+  $handler->display->display_options['fields']['counter']['field'] = 'counter';
+  $handler->display->display_options['fields']['counter']['label'] = 'row';
+  $handler->display->display_options['fields']['counter']['counter_start'] = '1';
   /* Field: File: Name */
   $handler->display->display_options['fields']['filename']['id'] = 'filename';
   $handler->display->display_options['fields']['filename']['table'] = 'file_managed';
@@ -5296,11 +5574,12 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
-  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+  <li><a target="_blank" href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
 <li><a href="../admin/commerce/reports/catman">Catman reports</a></li>
 <li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
 <li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
-<li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
+<li><a href="../admin/commerce/products/add/product">Add store product</a></li>
+<li><a href="../node/add/osu-catalog-publication">Add project</a></li>
 <li><a href="../node/add/author">Add author</a></li>
 </ul>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
@@ -5333,12 +5612,14 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
-  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+  <li><a target="_blank" href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
 <li><a href="../admin/commerce/reports/catman">Catman reports</a></li>
-<li><a href="../node/add/osu-catalog-publication">Add new project</a></li>
-<li><a href="../node/add/author">Add author</a></li>
 <li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
 <li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
+<li><a href="../admin/people/create">New customer account</a></li>
+<li><a href="../admin/commerce/products/add/product">New store product</a></li>
+<li><a href="../node/add/osu-catalog-publication">New project</a></li>
+<li><a href="../node/add/publication-author">New author</a></li>
 </ul>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
@@ -5424,9 +5705,9 @@ function catman_custom_views_default_views() {
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'List of hardcoded links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<ul class="menu">
-  <li><a href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
-<li><a href="../node/add/osu-catalog-publication">Add project</a></li>
-<li><a href="../node/add/author">Add author</a></li>
+  <li><a target="_blank" href="https://docs.google.com/a/oregonstate.edu/document/d/1s-hdDL5Kgu5D20LDFIpw-IviHNQvPZv2FW3iPKy3go0/edit?usp=sharing">Catman user guide</a></li>
+<li><a href="../node/add/osu-catalog-publication">New project</a></li>
+<li><a href="../node/add/publication-author">New author</a></li>
 <li><a href="../admin/commerce/reports/catman/review">Periodic review - date published or revised</a></li>
 <li><a href="../admin/commerce/reports/catman/review-date">Periodic review - date reviewed</a></li>
 </ul>';
