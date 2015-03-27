@@ -1685,7 +1685,7 @@ function catman_custom_views_default_views() {
           If you are paying with an OSU index, we will process a journal voucher to complete your payment.<br />
           If you are paying with a purchase order, payment is due upon receipt of your order. Please forward this invoice to your accounts payable department. Include the invoice or invoice number
           with your payment. Make checks payable to OSU and send to:</div>
-          <div class="indent-payment">Extension and Experiment Station Communications, Oregon State University, 422 Kerr Administration Bldg., Corvallis, OR 97330-2119</div>
+          <div class="indent-payment">Extension and Experiment Station Communications, Oregon State University, 422 Kerr Administration Bldg., Corvallis, OR 97331-2119</div>
         </div>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Commerce Order: Order ID */

@@ -138,7 +138,7 @@ function osu_catalog_publication_node_form_submit($form, &$form_state) {
   $form_state['values']['field_full_series_number']['und'][0]['value'] = strtoupper($form_state['values']['field_series_prefix']['und'][0]['value']) . ' ' . $form_state['values']['field_series_number']['und'][0]['value'] . $form_state['values']['field_series_suffix']['und'][0]['value'];
 
   // get node alias for use in file/link redirects and for setting SKU
-  $aliaspath = strtolower($form_state['build_info']['args'][0]->field_series_prefix['und'][0]['value']) . $form_state['build_info']['args'][0]->field_series_number['und'][0]['value'] . strtolower($form_state['build_info']['args'][0]->field_series_suffix['und'][0]['value']);
+  $aliaspath = strtolower($form_state['values']['field_series_prefix']['und'][0]['value']) . $form_state['values']['field_series_number']['und'][0]['value'] . strtolower($form_state['values']['field_series_suffix']['und'][0]['value']);
 
   // set redirect source paths
   $redirect_source_link = $aliaspath . '/view';
