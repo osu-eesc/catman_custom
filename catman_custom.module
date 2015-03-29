@@ -713,14 +713,14 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
       break;
 
 
-    case 'commerce_checkout_form_review':
-      global $user;
-      if (in_array('OSU affiliate', array_values($user->roles)) || in_array('Reseller', array_values($user->roles)) || in_array('PNW', array_values($user->roles)) ) {
-        $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order or OSU index');
-        $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
-      }
+    // case 'commerce_checkout_form_review':
+    //   global $user;
+    //   if (in_array('OSU affiliate', array_values($user->roles)) || in_array('Reseller', array_values($user->roles)) || in_array('PNW', array_values($user->roles)) ) {
+    //     // $form['commerce_payment']['payment_method']['#options']['commerce_purchase_order|commerce_payment_commerce_purchase_order'] = t('Purchase order');
+    //     // $form['commerce_payment']['payment_details']['po_number']['#title'] = t('PO or index number');
+    //   }
 
-    break;
+    // break;
 
     case 'commerce_checkout_form_checkout':
     case 'commerce_checkout_form_review':
