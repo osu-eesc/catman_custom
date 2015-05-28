@@ -19,6 +19,7 @@ dependencies[] = views
 dependencies[] = views_data_export
 dependencies[] = views_summarize
 stylesheets[all][] = theme/catman_custom.css
+scripts[] = js/catman_custom.js
 features[context][] = default_page_blocks
 features[context][] = sidebar_menus
 features[ctools][] = context:context:3
