@@ -684,7 +684,7 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
   //dpm($form, 'form array');
   if (strstr($form_id, 'commerce_cart_add_to_cart_form')) {
     $form['#attached']['library'][] = array('catman_custom', 'jquery_ui_spinner');
-    $form['#attached']['js'][] = drupal_get_path('module', 'catman_custom') . '/js/catman_custom.js';
+    $form['#attached']['js'][] = drupal_get_path('module', 'catman_custom') . '/js/ui_spinner.js';
 
     $form['quantity']['#attached'] = array('jquery_ui_spinner');
 
@@ -753,6 +753,24 @@ function catman_custom_form_alter(&$form, &$form_state, $form_id) {
     break;
 
   }
+}
+
+/**
+* Implements hook_node_view.
+* Add magic link js only on project pages.
+* Don't track downloads for admin (3), project manager(4), and store manager(7)
+*/
+function catman_custom_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'osu_catalog_publication' && $view_mode == 'full') {
+
+     global $user;
+
+     if (!$user->roles[3] && !$user->roles[4] && !$user->roles[7]) {
+      drupal_add_js(drupal_get_path('module', 'catman_custom') . '/js/catman_magic_link.js');
+     }
+
+  }
+
 }
 
 /**
