@@ -44,6 +44,12 @@ function catman_custom_help($path, $arg) {
       return '<h3>' . t('Periodic Review - by date reviewed') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
 
     break;
+
+    // case 'admin/commerce/reports/catman/reconciliation-type-invoice-date':
+    //   return '<h3>' . t('Reconciliation Report - totals by payment method and invoice date') . '</h3> ';
+
+    // break;
+
   }
 }
 

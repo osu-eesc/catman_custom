@@ -86,7 +86,7 @@ div.view-display-id-catman_dashboard {
 .catman-reports .view-grouping-header {
   font-size: 1.125em;
   text-align: left;
-  font-weight: 600;
+  /*font-weight: 600;*/
 }
 
 div.content > div.catman-reports {
@@ -356,6 +356,44 @@ div.workbench-info-block {
 /* Limit the list of states to just main 50 and DC */
 select.state option:nth-child(n+53) {
   display: none;
+}
+
+
+table.commerce-price-savings-formatter-prices-inline,
+table.commerce-price-savings-formatter-prices-inline  {
+  border: none !important;
+  font-size: inherit;
+}
+
+table.commerce-price-savings-formatter-prices-inline tbody,
+table.commerce-price-savings-formatter-prices-inline tr,
+table.commerce-price-savings-formatter-prices-inline th,
+table.commerce-price-savings-formatter-prices-inline td {
+  border: none !important;
+}
+
+table td.commerce-price-savings-formatter-savings {
+  white-space: nowrap;
+}
+
+
+
+
+/*td::after .commerce-price-savings-formatter-savings {
+  content: " discount";
+}*/
+
+.commerce-price-savings-formatter-prices-inline tr td.commerce-price-savings-formatter-savings::before {
+  content: "- ";
+  color: #006600 !important;
+}
+
+.commerce-price-savings-formatter-prices-down .commerce-price-savings-formatter-price .price-amount {
+  color: #006600 !important;
+}
+
+.commerce-price-savings-formatter-prices-down .commerce-price-savings-formatter-savings .price-amount {
+  color: #006600 !important;
 }
 
 
