@@ -7,6 +7,88 @@
 include_once 'catman_custom.features.inc';
 
 
+
+/**
+ * Add/update Catman HTML version alias.
+ * View it online button will display on detail page if html filed has data
+ * Alias will validate view's page and display HTML view display node
+ */
+
+/**
+ * Implements hook_menu.
+ */
+function catman_custom_menu() {
+  $items['node/%node/html'] = array(
+    'page callback' => 'catman_custom_html',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_pathauto.
+ */
+function catman_custom_pathauto($op) {
+  $settings = new stdClass();
+  $settings->module = 'catman_custom';
+  $settings->groupheader = t('Catman HTML Paths');
+  $settings->patterndescr = t('Default path pattern');
+  $settings->patterndefault = '[node:field_series_prefix][node:field-series-number][node:field-series-suffix]/html';
+  $settings->token_type = 'node';
+  $settings->patternitems = array('html' => 'Catman HTML');
+  $settings->batch_update_callback = 'catman_custom_pathauto_bulkupdate';
+  return $settings;
+}
+
+/**
+ * helper function to create the alias
+ */
+function catman_custom_create_alias($node, $op) {
+  module_load_include('inc', 'pathauto');
+  pathauto_create_alias('catman_custom', $op, 'node/' . $node->nid . '/html', array('node' => $node), 'html');
+}
+
+/**
+ * Implements hook_node_insert.
+ */
+function catman_custom_node_insert($node) {
+  if($node->type == 'osu_catalog_publication') {
+    catman_custom_create_alias($node, 'insert');
+  }
+}
+
+/**
+ * Implements hook_node_update.
+ */
+function catman_custom_node_update($node) {
+  if($node->type == 'osu_catalog_publication') {
+    catman_custom_create_alias($node, 'update');
+  }
+}
+
+/**
+ * Implements hook_pathauto_bulkupdate.
+ */
+function catman_custom_pathauto_bulkupdate() {
+  // find all node ids for the store content type
+  $query = db_select('node', 'n');
+  $query
+    ->condition('n.type', 'osu_catalog_publication')
+    ->fields('n', array('nid'));
+  $results = $query->execute()->fetchCol();
+  $count = 0;
+  foreach($results as $nid) {
+    $node = node_load($nid);
+    catman_custom_create_alias($node, 'bulkupdate');
+    $count++;
+  }
+  drupal_set_message($count . ' Catman HTML paths were updated.');
+}
+
+
+
 /**
  * Implements hook_help().
  */
@@ -130,10 +212,33 @@ function catman_custom_search_page($build) {
 }
 
 /**
+ * Implements hook_node_insert.
+ */
+// function catman_custom_node_insert($node) {
+//   if($node->type == 'project' && $node->field_html_output) {
+//     node_extras_create_alias($node, 'insert');
+//   }
+// }
+
+
+
+/**
+ * Implements hook_node_update.
+ */
+// function node_extras_node_update($node) {
+//   if($node->type == 'blog') {
+//     node_extras_create_alias($node, 'update');
+//   }
+// }
+// - See more at: http://envisioninteractive.com/drupal/using-the-pathauto-api-drupal-module-a-simple-example/#sthash.3NqLbo1h.dpuf
+
+/**
  * Implements hook_form_submit().
  */
 function osu_catalog_publication_node_form_submit($form, &$form_state) {
     //dpm($form, 'form array');
+
+
 
   if ($form_state['values']['field_add_to_store']['und'][0]['value'] == 0) {
     //unset($form_state['values']['field_publication_product']['und'][0]['value']);
