@@ -7,11 +7,9 @@
 include_once 'catman_custom.features.inc';
 
 
-
 /**
  * Add/update Catman HTML version alias.
- * View it online button will display on detail page if html filed has data
- * Alias will validate view's page and display HTML view display node
+ * View it online button will display on detail page if html filed has data Alias will validate view's page and display HTML view display node.
  */
 
 /**
@@ -72,14 +70,14 @@ function catman_custom_node_update($node) {
  * Implements hook_pathauto_bulkupdate.
  */
 function catman_custom_pathauto_bulkupdate() {
-  // find all node ids for the store content type
+  // Find all node ids for the store content type.
   $query = db_select('node', 'n');
   $query
     ->condition('n.type', 'osu_catalog_publication')
     ->fields('n', array('nid'));
   $results = $query->execute()->fetchCol();
   $count = 0;
-  foreach($results as $nid) {
+  foreach ($results as $nid) {
     $node = node_load($nid);
     catman_custom_create_alias($node, 'bulkupdate');
     $count++;
@@ -95,7 +93,7 @@ function catman_custom_pathauto_bulkupdate() {
 function catman_custom_help($path, $arg) {
   switch ($path) {
     // case 'admin/commerce/reports/catman':
-    //   return '<p>' . t('Catman specific reports') . '</p>';
+    //   Return '<p>' . t('Catman specific reports') . '</p>';.
 
     case 'admin/commerce/reports/catman/inventory':
       return '<h3>' . t('Catman Inventory Report') . '</h3> <em>' . t('Click the CSV button to download report') . '</em>';
@@ -876,7 +874,7 @@ function catman_custom_node_view($node, $view_mode, $langcode) {
 
      global $user;
 
-     if (!$user->roles[3] && !$user->roles[4] && !$user->roles[7]) {
+     if (!isset($user->roles[3]) && !isset($user->roles[4]) && !isset($user->roles[7])) {
       drupal_add_js(drupal_get_path('module', 'catman_custom') . '/js/catman_magic_link.js');
      }
 
@@ -1018,6 +1016,3 @@ function catman_custom_workbench_content_alter(&$output) {
   );
 
 }
-
-
-
