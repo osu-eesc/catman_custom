@@ -6,6 +6,7 @@
 
 /**
  * Implements hook_context_default_contexts().
+ *
  */
 function catman_custom_context_default_contexts() {
   $export = array();
